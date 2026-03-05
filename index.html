@@ -851,10 +851,10 @@ ul{list-style:none}
     <nav class="sidebar-nav">
       <div class="nav-group-label">Lärande</div>
       <div class="nav-item active" id="nav-programs" onclick="goTo('programs',this)">
-        <span class="nav-icon">📚</span> Program
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zM21 18.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg></span> Program
       </div>
       <div class="nav-item" id="nav-progress" onclick="goTo('progress',this)">
-        <span class="nav-icon">📊</span> Min progress
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></span> Min progress
       </div>
     </nav>
     <div class="sidebar-footer" onclick="openProfilePanel()" title="Kontoinställningar">
@@ -863,7 +863,7 @@ ul{list-style:none}
         <div class="sidebar-user-name">Joakim Kempff</div>
         <div class="sidebar-user-role">Lärande</div>
       </div>
-      <span style="font-size:.8rem;color:var(--text-dark2);flex-shrink:0">⚙</span>
+      <span style="color:var(--text-dark2);flex-shrink:0"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
     </div>
   </aside>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -926,19 +926,19 @@ ul{list-style:none}
           </div>
           <div class="video-btns">
             <div class="vbtn" onclick="jumpToStart()">
-              <span class="vbtn-icon">⏮</span><span class="vbtn-label">Början</span>
+              <span class="vbtn-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></span><span class="vbtn-label">Början</span>
             </div>
             <div class="vbtn" onclick="skipBack()">
-              <span class="vbtn-icon">↺</span><span class="vbtn-label">10s</span>
+              <span class="vbtn-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/><text x="8" y="15" font-size="6" font-weight="bold" fill="currentColor">10</text></svg></span><span class="vbtn-label">10s</span>
             </div>
             <div class="vbtn vbtn-play" onclick="togglePlay(this)">
-              <span class="vbtn-icon" id="play-icon">⏸</span>
+              <span class="vbtn-icon" id="play-icon"><svg id="play-svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></span>
             </div>
             <div class="vbtn" onclick="skipFwd()">
-              <span class="vbtn-icon">↻</span><span class="vbtn-label">10s</span>
+              <span class="vbtn-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 5v4l5-5-5-5v4C7.58 3 4 6.58 4 11s3.58 8 8 8 8-3.58 8-8h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6z"/><text x="8" y="15" font-size="6" font-weight="bold" fill="currentColor">10</text></svg></span><span class="vbtn-label">10s</span>
             </div>
             <div class="vbtn" onclick="jumpToEnd()">
-              <span class="vbtn-icon">⏭</span><span class="vbtn-label">Slutet</span>
+              <span class="vbtn-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 18l8.5-6L6 6v12zm8.5-6L23 6v12z"/><rect x="16" y="6" width="2" height="12"/></svg></span><span class="vbtn-label">Slutet</span>
             </div>
           </div>
           <div class="video-actions">
@@ -946,7 +946,7 @@ ul{list-style:none}
               Fortsätt till Artikel →
             </button>
             <div id="video-unlock-hint" style="text-align:center;font-size:.74rem;color:rgba(255,255,255,.6);padding:5px 0;display:none">
-              ⏳ Se klart för att låsa upp nästa steg
+              <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="vertical-align:-2px;margin-right:3px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> Se klart för att låsa upp nästa steg
             </div>
           </div>
           </div><!-- end .video-controls -->
@@ -959,7 +959,7 @@ ul{list-style:none}
       <div id="lesson-panel-article" class="hidden">
         <div class="lesson-article">
           <div class="article-body">
-            <div class="lesson-article-label">📄 Textartikel</div>
+            <div class="lesson-article-label"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" style="vertical-align:-2px;margin-right:4px"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>Textartikel</div>
             <h1 class="article-h1">Den brutala sanningen om öppningar</h1>
             <p class="article-p">Här är vad som händer i kundens huvud de första 60 sekunderna:</p>
             <ul style="margin-bottom:14px">
@@ -1003,9 +1003,9 @@ ul{list-style:none}
           <div class="ai-input-row">
             <div class="ai-input-wrap">
               <input class="ai-input" id="ai-input" placeholder="Svara här…" onkeydown="handleAIEnter(event)"/>
-              <button class="ai-send-btn" onclick="sendAIMessage()">➤</button>
+              <button class="ai-send-btn" onclick="sendAIMessage()"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
             </div>
-            <button class="ai-voice-btn" onclick="switchToVoice()" title="Röstchatt">🎤</button>
+            <button class="ai-voice-btn" onclick="switchToVoice()" title="Röstchatt"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/></svg></button>
             <button class="ai-quiz-arrow" id="ai-quiz-cta" style="display:none" onclick="goToLessonStep('quiz')" title="Gå till Quiz">›</button>
           </div>
         </div>
@@ -1014,7 +1014,7 @@ ul{list-style:none}
         <div id="ai-voice-input" class="voice-input-section" style="display:none">
           <button class="mic-btn idle" id="micBtn"
             onmousedown="startMic()" onmouseup="stopMic()" onmouseleave="stopMic()"
-            ontouchstart="startMic(event)" ontouchend="stopMic(event)">🎤</button>
+            ontouchstart="startMic(event)" ontouchend="stopMic(event)"><svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/></svg></button>
           <span class="mic-label" id="micLabel">Håll in för att prata</span>
           <div style="display:flex;align-items:center;gap:10px">
             <button style="font-size:.78rem;color:var(--text-light2);background:none;border:none;cursor:pointer;padding:4px 8px" onclick="switchToText()">← Byt till text</button>
@@ -1027,7 +1027,7 @@ ul{list-style:none}
       <!-- CELEBRATION PANEL — always the final step -->
       <div id="lesson-panel-avslut" class="hidden">
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px 24px;gap:20px;text-align:center;overflow-y:auto">
-          <div style="font-size:3.2rem">🎉</div>
+          <div style="font-size:3.2rem"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.5" width="56" height="56"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="var(--purple)" stroke="none"/></svg></div>
           <div style="font-size:1.3rem;font-weight:800;color:var(--text-light)">Session klar!</div>
           <div style="font-size:.9rem;color:var(--text-light2);line-height:1.6;max-width:280px">Bra jobbat! Du har klarat av alla moment i den här sessionen.</div>
           <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;margin-top:12px">
@@ -1059,22 +1059,22 @@ ul{list-style:none}
       <!-- Stat cards -->
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:14px">
         <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
-          <div style="font-size:1.5rem;margin-bottom:6px">✅</div>
+          <div style="margin-bottom:6px"><svg viewBox="0 0 24 24" fill="#4CAF50" width="26" height="26"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
           <div style="font-size:1.6rem;font-weight:800">12</div>
           <div style="font-size:.78rem;color:var(--text-dark2)">Sessioner klara</div>
         </div>
         <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
-          <div style="font-size:1.5rem;margin-bottom:6px">⏱</div>
+          <div style="margin-bottom:6px"><svg viewBox="0 0 24 24" fill="var(--purple)" width="26" height="26"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div>
           <div style="font-size:1.6rem;font-weight:800">6.4h</div>
           <div style="font-size:.78rem;color:var(--text-dark2)">Total lärartid</div>
         </div>
         <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
-          <div style="font-size:1.5rem;margin-bottom:6px">🔥</div>
+          <div style="margin-bottom:6px"><svg viewBox="0 0 24 24" fill="#FF6B35" width="26" height="26"><path d="M13.5 .67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM12 20c-2.76 0-5-2.24-5-5 0-1.85.64-3.54 2-4.5v1.5c0 1.66 1.34 3 3 3s3-1.34 3-3V8.97c2.04 1.52 3 3.69 3 5.03 0 2.76-2.24 5-5 5z"/></svg></div>
           <div style="font-size:1.6rem;font-weight:800">7</div>
           <div style="font-size:.78rem;color:var(--text-dark2)">Dagars streak</div>
         </div>
         <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
-          <div style="font-size:1.5rem;margin-bottom:6px">⭐</div>
+          <div style="margin-bottom:6px"><svg viewBox="0 0 24 24" fill="#FFC107" width="26" height="26"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
           <div style="font-size:1.6rem;font-weight:800">2 480</div>
           <div style="font-size:.78rem;color:var(--text-dark2)">XP totalt</div>
         </div>
@@ -1098,14 +1098,14 @@ ul{list-style:none}
 
       <!-- Streak calendar -->
       <div class="game-section">
-        <div class="game-section-title">🔥 Din streak — 7 dagar i rad!</div>
+        <div class="game-section-title"><svg viewBox="0 0 24 24" fill="#FF6B35" width="16" height="16" style="vertical-align:-3px;margin-right:4px"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM12 20c-2.76 0-5-2.24-5-5 0-1.85.64-3.54 2-4.5v1.5c0 1.66 1.34 3 3 3s3-1.34 3-3V8.97c2.04 1.52 3 3.69 3 5.03 0 2.76-2.24 5-5 5z"/></svg> Din streak — 7 dagar i rad!</div>
         <div class="streak-days">
           <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Mån</div></div>
           <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Tis</div></div>
           <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Ons</div></div>
           <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Tor</div></div>
           <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Fre</div></div>
-          <div class="streak-day"><div class="streak-dot active">🔥</div><div class="streak-day-label">Lör</div></div>
+          <div class="streak-day"><div class="streak-dot active"><svg viewBox="0 0 24 24" fill="#FF6B35" width="14" height="14"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg></div><div class="streak-day-label">Lör</div></div>
           <div class="streak-day"><div class="streak-dot today">I dag</div><div class="streak-day-label">Sön</div></div>
           <div class="streak-day"><div class="streak-dot empty">–</div><div class="streak-day-label">Mån</div></div>
           <div class="streak-day"><div class="streak-dot empty">–</div><div class="streak-day-label">Tis</div></div>
@@ -1115,24 +1115,24 @@ ul{list-style:none}
 
       <!-- Badges -->
       <div class="game-section">
-        <div class="game-section-title">🏅 Utmärkelser</div>
+        <div class="game-section-title"><svg viewBox="0 0 24 24" fill="#FFC107" width="16" height="16" style="vertical-align:-3px;margin-right:4px"><path d="M12 1L9 9H1l6 5-2 8 7-5 7 5-2-8 6-5h-8z"/></svg> Utmärkelser</div>
         <div class="badges-grid">
-          <div class="badge-item"><div class="badge-icon earned">🚀</div><div class="badge-name">Snabbstart</div></div>
-          <div class="badge-item"><div class="badge-icon earned">🎯</div><div class="badge-name">Precisions­sälj</div></div>
-          <div class="badge-item"><div class="badge-icon earned">🔥</div><div class="badge-name">7-dagars streak</div></div>
-          <div class="badge-item"><div class="badge-icon earned">💬</div><div class="badge-name">AI-dialog</div></div>
-          <div class="badge-item"><div class="badge-icon earned">📚</div><div class="badge-name">Kurs­klar</div></div>
-          <div class="badge-item"><div class="badge-icon locked">🏆</div><div class="badge-name">Mästare</div></div>
-          <div class="badge-item"><div class="badge-icon locked">⚡</div><div class="badge-name">Blixtsälj</div></div>
-          <div class="badge-item"><div class="badge-icon locked">🌟</div><div class="badge-name">Stjärn­säljare</div></div>
+          <div class="badge-item"><div class="badge-icon earned"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></div><div class="badge-name">Snabbstart</div></div>
+          <div class="badge-item"><div class="badge-icon earned"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div><div class="badge-name">Precisions­sälj</div></div>
+          <div class="badge-item"><div class="badge-icon earned"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg></div><div class="badge-name">7-dagars streak</div></div>
+          <div class="badge-item"><div class="badge-icon earned"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></div><div class="badge-name">AI-dialog</div></div>
+          <div class="badge-item"><div class="badge-icon earned"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1z"/></svg></div><div class="badge-name">Kurs­klar</div></div>
+          <div class="badge-item"><div class="badge-icon locked"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 15.9V18H9v2h6v-2h-2v-2.1a5.01 5.01 0 003.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg></div><div class="badge-name">Mästare</div></div>
+          <div class="badge-item"><div class="badge-icon locked"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div><div class="badge-name">Blixtsälj</div></div>
+          <div class="badge-item"><div class="badge-icon locked"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L9 9H1l6 5-2 8 7-5 7 5-2-8 6-5h-8z"/></svg></div><div class="badge-name">Stjärn­säljare</div></div>
         </div>
       </div>
 
       <!-- Weekly challenges -->
       <div class="game-section">
-        <div class="game-section-title">⚡ Veckans utmaningar</div>
+        <div class="game-section-title"><svg viewBox="0 0 24 24" fill="#FFC107" width="16" height="16" style="vertical-align:-3px;margin-right:4px"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg> Veckans utmaningar</div>
         <div class="challenge-item">
-          <div class="challenge-icon">📹</div>
+          <div class="challenge-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg></div>
           <div class="challenge-info">
             <div class="challenge-title">Se 5 videos den här veckan</div>
             <div class="challenge-sub">+150 XP bonus</div>
@@ -1141,7 +1141,7 @@ ul{list-style:none}
           <div class="challenge-pct">3/5</div>
         </div>
         <div class="challenge-item">
-          <div class="challenge-icon">🤖</div>
+          <div class="challenge-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 017 7H4a7 7 0 017-7h1V5.73A2 2 0 0112 2M7 14v2a1 1 0 001 1h8a1 1 0 001-1v-2H7m-2 6v-2h14v2H5z"/></svg></div>
           <div class="challenge-info">
             <div class="challenge-title">Chatta med AI-mentor 3 gånger</div>
             <div class="challenge-sub">+100 XP bonus</div>
@@ -1150,7 +1150,7 @@ ul{list-style:none}
           <div class="challenge-pct">1/3</div>
         </div>
         <div class="challenge-item">
-          <div class="challenge-icon">🧠</div>
+          <div class="challenge-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm0-11.5c-1.38 0-2.5 1.12-2.5 2.5H11c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5c0 .83-.67 1.5-1.5 1.5h-1v2h1v-.18c1.39-.35 2.5-1.6 2.5-3.32 0-1.38-1.12-2.5-2.5-2.5zM11 16h2v2h-2z"/></svg></div>
           <div class="challenge-info">
             <div class="challenge-title">Klara 2 quiz med full poäng</div>
             <div class="challenge-sub">+200 XP bonus</div>
@@ -1162,21 +1162,21 @@ ul{list-style:none}
 
       <!-- Leaderboard -->
       <div class="game-section">
-        <div class="game-section-title">🏆 Topplista — den här veckan</div>
+        <div class="game-section-title"><svg viewBox="0 0 24 24" fill="#FFC107" width="16" height="16" style="vertical-align:-3px;margin-right:4px"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 15.9V18H9v2h6v-2h-2v-2.1a5.01 5.01 0 003.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg> Topplista — den här veckan</div>
         <div class="leaderboard-row">
-          <div class="lr-rank gold">🥇</div>
+          <div class="lr-rank gold">1</div>
           <div class="lr-avatar" style="background:#7C6FCD">SK</div>
           <div class="lr-name">Sara K.</div>
           <div class="lr-xp">840 XP</div>
         </div>
         <div class="leaderboard-row">
-          <div class="lr-rank silver">🥈</div>
+          <div class="lr-rank silver">2</div>
           <div class="lr-avatar" style="background:#E8837A">ML</div>
           <div class="lr-name">Marcus L.</div>
           <div class="lr-xp">720 XP</div>
         </div>
         <div class="leaderboard-row">
-          <div class="lr-rank bronze">🥉</div>
+          <div class="lr-rank bronze">3</div>
           <div class="lr-avatar" style="background:#5B5CE2">AH</div>
           <div class="lr-name">Anna H.</div>
           <div class="lr-xp">610 XP</div>
@@ -1248,9 +1248,9 @@ ul{list-style:none}
     <div class="ai-input-row">
       <div class="ai-input-wrap">
         <input class="ai-input" id="mentor-dropdown-input" placeholder="Ställ en fråga…" onkeydown="handleMentorDropdownEnter(event)"/>
-        <button class="ai-send-btn" onclick="sendMentorDropdown()">➤</button>
+        <button class="ai-send-btn" onclick="sendMentorDropdown()"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
       </div>
-      <button class="ai-voice-btn" onclick="switchMdToVoice()" title="Röstchatt">🎤</button>
+      <button class="ai-voice-btn" onclick="switchMdToVoice()" title="Röstchatt"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/></svg></button>
     </div>
   </div>
 
@@ -1258,7 +1258,7 @@ ul{list-style:none}
   <div id="md-voice-input" class="md-voice-section" style="display:none">
     <button class="mic-btn idle" id="md-micBtn"
       onmousedown="startMdMic()" onmouseup="stopMdMic()" onmouseleave="stopMdMic()"
-      ontouchstart="startMdMic(event)" ontouchend="stopMdMic(event)">🎤</button>
+      ontouchstart="startMdMic(event)" ontouchend="stopMdMic(event)"><svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/></svg></button>
     <span class="mic-label" id="md-micLabel">Håll in för att prata</span>
     <button style="font-size:.78rem;color:var(--text-light2);background:none;border:none;cursor:pointer;padding:4px 8px" onclick="switchMdToText()">← Byt till text</button>
   </div>
@@ -1286,19 +1286,19 @@ ul{list-style:none}
       </div>
     </div>
     <div class="profile-action-item" onclick="closeProfilePanel()">
-      <span class="profile-action-icon">👤</span> Redigera profil
+      <span class="profile-action-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></span> Redigera profil
     </div>
     <div class="profile-action-item" onclick="closeProfilePanel()">
-      <span class="profile-action-icon">🔔</span> Aviseringar
+      <span class="profile-action-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg></span> Aviseringar
     </div>
     <div class="profile-action-item" onclick="closeProfilePanel()">
-      <span class="profile-action-icon">🔒</span> Lösenord &amp; säkerhet
+      <span class="profile-action-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg></span> Lösenord &amp; säkerhet
     </div>
     <div class="profile-action-item" onclick="closeProfilePanel()">
-      <span class="profile-action-icon">🌐</span> Språk &amp; region
+      <span class="profile-action-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg></span> Språk &amp; region
     </div>
     <div class="profile-action-item profile-action-danger" onclick="closeProfilePanel()">
-      <span class="profile-action-icon">🚪</span> Logga ut
+      <span class="profile-action-icon"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg></span> Logga ut
     </div>
   </div>
 </div>
@@ -1706,7 +1706,7 @@ function renderChapters() {
           </div>
           <span class="lesson-title">${l.title}</span>
           <span class="lesson-time">${l.time}</span>
-          ${isLocked ? '<span class="lesson-lock">🔒</span>' : ''}
+          ${isLocked ? '<span class="lesson-lock"><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg></span>' : ''}
         </div>`;
         }).join('')}
       </div>
@@ -1740,7 +1740,7 @@ function openLesson(progId, chapterIdx, lessonIdx) {
   document.getElementById('vpbar').style.width = videoProgress+'%';
   videoPlaying = true;
   videoSpeed = 1;
-  document.getElementById('play-icon').textContent = '⏸';
+  document.getElementById('play-icon').innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
   // Reset speed buttons to 1×
   document.querySelectorAll('.speed-btn').forEach((b,i) => b.classList.toggle('active', i===0));
 
@@ -1819,7 +1819,9 @@ function fmt(s){ return Math.floor(s/60)+':'+(s%60).toString().padStart(2,'0'); 
 
 function togglePlay(el){
   videoPlaying = !videoPlaying;
-  document.getElementById('play-icon').textContent = videoPlaying ? '⏸' : '▶';
+  const pauseSVG = '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+  const playSVG  = '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>';
+  document.getElementById('play-icon').innerHTML = videoPlaying ? pauseSVG : playSVG;
   if(videoPlaying){ startVideoProgress(); scheduleHideControls(); }
   else {
     stopVideoProgress();
@@ -1891,7 +1893,7 @@ const AI_RESPONSES = [
   'Bättre! Nu hade du både syfte och agenda. Nästa steg – gör det ännu kortare och skarpare.',
 ];
 
-const AI_GREETING = 'Bra jobbat! 👏 Vad tog du med dig från artikeln? Reflektera gärna, skriv ett svar — eller testa att öva genom att prata med mig.';
+const AI_GREETING = 'Bra jobbat! Vad tog du med dig från artikeln? Reflektera gärna, skriv ett svar — eller testa att öva genom att prata med mig.';
 
 function initAIChat(){
   // Init chat on first open per lesson — preserve state on return visits
@@ -1928,7 +1930,7 @@ function openAIPanel(){
 /* ══════════════════════════════════════
    MENTOR DROPDOWN (global quick-chat)
 ══════════════════════════════════════ */
-const MENTOR_DROPDOWN_GREETING = 'Hej! 👋 Jag är din AI-mentor. Ställ gärna en fråga om det du lär dig, ett begrepp du vill förstå bättre, eller be mig ge ett exempel.';
+const MENTOR_DROPDOWN_GREETING = 'Hej! Jag är din AI-mentor. Ställ gärna en fråga om det du lär dig, ett begrepp du vill förstå bättre, eller be mig ge ett exempel.';
 let mentorDropdownInit = false;
 let mentorDropdownRespIdx = 0;
 const MENTOR_DROPDOWN_RESPONSES = [
@@ -2317,7 +2319,12 @@ function showQuizResults(){
   if(!panel) return;
   panel.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px 24px;gap:20px;text-align:center;overflow-y:auto">
-      <div style="font-size:2.8rem">${allCorrect ? '🏆' : correct >= total/2 ? '👍' : '📚'}</div>
+      <div style="font-size:2.8rem">${allCorrect
+        ? '<svg viewBox="0 0 24 24" fill="#FFC107" width="52" height="52"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 15.9V18H9v2h6v-2h-2v-2.1a5.01 5.01 0 003.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>'
+        : correct >= total/2
+        ? '<svg viewBox="0 0 24 24" fill="#4CAF50" width="52" height="52"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="var(--purple)" width="52" height="52"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1z"/></svg>'
+      }</div>
       <div style="font-size:1.2rem;font-weight:800;color:var(--text-light)">Quiz avslutat</div>
       <div style="background:var(--surface2);border-radius:14px;padding:22px 32px;min-width:180px">
         <div style="font-size:2.5rem;font-weight:800;color:var(--purple)">${correct}/${total}</div>
