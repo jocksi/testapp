@@ -1,0 +1,2424 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pacy – Staying ahead</title>
+<style>
+/* ═══════════════════════════════════
+   BASE & TOKENS
+═══════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:          #0F0F0F;
+  --bg2:         #1C1C1E;
+  --bg3:         #2C2C2E;
+  --surface:     #FFFFFF;
+  --surface2:    #F2F2F7;
+  --border-dark: rgba(255,255,255,.1);
+  --border-light:#E5E5EA;
+  --text-dark:   #FFFFFF;
+  --text-dark2:  rgba(255,255,255,.55);
+  --text-light:  #1C1C1E;
+  --text-light2: #6E6E73;
+  --red:         #C0392B;
+  --red-bg:      rgba(192,57,43,.12);
+  --purple:      #7C3AED;
+  --grad-start:  #7C6FCD;
+  --grad-end:    #5B5CE2;
+  --radius:      14px;
+  --radius-sm:   8px;
+  --transition:  .2s ease;
+}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text-dark);min-height:100vh;line-height:1.5}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+ul{list-style:none}
+.hidden{display:none!important}
+
+/* ═══════════════════════════════════
+   LAYOUT SHELL
+═══════════════════════════════════ */
+#shell{display:flex;min-height:100vh}
+
+/* ── Sidebar ── */
+.sidebar{
+  width:220px;flex-shrink:0;
+  background:var(--bg2);
+  border-right:1px solid var(--border-dark);
+  display:flex;flex-direction:column;
+  position:fixed;top:0;bottom:0;left:0;z-index:80;
+  transition:transform var(--transition);
+}
+.sidebar-logo{
+  display:flex;align-items:center;gap:9px;
+  padding:22px 18px 16px;
+  font-size:1.1rem;font-weight:700;
+  border-bottom:1px solid var(--border-dark);
+}
+.logo-mark{width:26px;height:26px;flex-shrink:0}
+.sidebar-nav{flex:1;padding:10px 8px;overflow-y:auto}
+.nav-group-label{
+  font-size:.68rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-dark2);
+  padding:12px 10px 5px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 12px;border-radius:var(--radius-sm);
+  font-size:.875rem;font-weight:500;color:var(--text-dark2);
+  cursor:pointer;transition:background var(--transition),color var(--transition);
+}
+.nav-item:hover{background:var(--bg3);color:var(--text-dark)}
+.nav-item.active{background:rgba(124,111,205,.18);color:#A89EE8}
+.nav-icon{width:16px;text-align:center;font-size:.9rem}
+.sidebar-footer{
+  padding:14px;border-top:1px solid var(--border-dark);
+  display:flex;align-items:center;gap:10px;
+}
+.avatar-sm{
+  width:34px;height:34px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;font-weight:700;color:#fff;
+}
+.sidebar-user-name{font-size:.82rem;font-weight:600}
+.sidebar-user-role{font-size:.72rem;color:var(--text-dark2)}
+
+/* ── Main content ── */
+.main{
+  margin-left:220px;flex:1;
+  display:flex;flex-direction:column;
+  min-width:0;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* ── Topbar ── */
+.topbar{
+  height:56px;background:var(--bg2);
+  border-bottom:1px solid var(--border-dark);
+  display:flex;align-items:center;
+  padding:0 24px;gap:14px;
+  position:sticky;top:0;z-index:70;
+}
+.topbar-title{font-size:.95rem;font-weight:700}
+.topbar-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.hamburger{
+  display:none;flex-direction:column;gap:4px;
+  padding:4px;cursor:pointer;
+}
+.hamburger span{display:block;width:20px;height:2px;background:var(--text-dark);border-radius:2px;transition:var(--transition)}
+.sidebar-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.6);z-index:79;
+}
+
+/* ═══════════════════════════════════
+   PAGES
+═══════════════════════════════════ */
+.page{display:none;padding:24px;flex:1}
+.page.active{display:block;overflow-y:auto;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════
+   PROGRAMS LIST PAGE
+═══════════════════════════════════ */
+.page-heading{
+  font-size:1.4rem;font-weight:800;margin-bottom:4px;
+}
+.page-sub{font-size:.875rem;color:var(--text-dark2);margin-bottom:22px}
+
+.programs-list{display:flex;flex-direction:column;gap:10px}
+.program-row{
+  background:var(--bg2);
+  border:1px solid var(--border-dark);
+  border-radius:var(--radius);
+  padding:18px 20px;
+  display:flex;align-items:center;gap:16px;
+  cursor:pointer;
+  transition:background var(--transition),border-color var(--transition);
+}
+.program-row:hover{background:var(--bg3);border-color:rgba(255,255,255,.2)}
+.program-thumb{
+  width:48px;height:48px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;flex-shrink:0;
+}
+.program-info{flex:1;min-width:0}
+.program-info h3{font-size:.95rem;font-weight:700;margin-bottom:3px}
+.program-meta-row{
+  display:flex;align-items:center;gap:12px;
+  font-size:.78rem;color:var(--text-dark2);
+}
+.prog-progress-wrap{margin-top:8px}
+.prog-bar-bg{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--grad-start),var(--grad-end));border-radius:2px}
+.prog-pct{font-size:.72rem;color:var(--text-dark2);margin-top:4px;text-align:right}
+.prog-status-badge{
+  flex-shrink:0;font-size:.72rem;font-weight:600;
+  padding:3px 9px;border-radius:20px;
+}
+.badge-new{background:rgba(124,111,205,.2);color:#A89EE8}
+.badge-active{background:rgba(91,92,226,.15);color:#818CF8}
+.badge-done{background:rgba(52,199,89,.15);color:#34C759}
+.chevron-right{
+  flex-shrink:0;color:var(--text-dark2);font-size:1rem;
+}
+
+/* ═══════════════════════════════════
+   CHAPTER / PROGRAM OVERVIEW PAGE
+═══════════════════════════════════ */
+.back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.875rem;color:var(--text-dark2);cursor:pointer;
+  margin-bottom:20px;padding:4px 0;
+  transition:color var(--transition);
+}
+.back-btn:hover{color:var(--text-dark)}
+
+.program-overview-header{
+  margin-bottom:28px;
+}
+.program-overview-header h2{font-size:1.5rem;font-weight:800;margin-bottom:4px}
+.sessions-row{
+  display:flex;align-items:center;gap:12px;
+  font-size:.85rem;color:var(--text-dark2);
+  margin-bottom:12px;
+}
+.sessions-val{font-size:.85rem;font-weight:700;color:var(--text-dark)}
+
+.chapter-section{
+  background:var(--bg2);border:1px solid var(--border-dark);
+  border-radius:var(--radius);margin-bottom:14px;overflow:hidden;
+}
+.chapter-header{padding:16px 20px 10px;font-size:.95rem;font-weight:700}
+.chapter-lessons{padding:0 20px 6px}
+.lesson-row{
+  display:flex;align-items:center;
+  padding:10px 0;
+  border-top:1px solid var(--border-dark);
+  cursor:pointer;
+  transition:opacity var(--transition);
+}
+.lesson-row:first-child{border-top:none}
+.lesson-row:not(.locked):hover{opacity:.8}
+.lesson-row.locked{
+  cursor:not-allowed;
+  opacity:.35;
+}
+.lesson-check{
+  width:20px;height:20px;border-radius:5px;flex-shrink:0;margin-right:10px;
+  border:1.5px solid var(--border-dark);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:700;color:transparent;
+  transition:var(--transition);
+}
+.lesson-check.done{background:#34C759;border-color:#34C759;color:#fff}
+.lesson-title{flex:1;font-size:.85rem;color:var(--text-dark)}
+.lesson-time{font-size:.78rem;color:var(--text-dark2);flex-shrink:0}
+.lesson-lock{font-size:.72rem;color:var(--text-dark2);flex-shrink:0;margin-left:6px;opacity:.7}
+.chapter-footer{
+  padding:8px 20px 14px;
+}
+.chapter-prog-bg{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:5px}
+.chapter-prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--grad-start),var(--grad-end))}
+.chapter-prog-label{
+  display:flex;justify-content:space-between;
+  font-size:.72rem;color:var(--text-dark2);margin-bottom:10px;
+}
+.revisit-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.78rem;font-weight:600;color:var(--text-dark2);
+  background:var(--bg3);border:1px solid var(--border-dark);
+  border-radius:6px;padding:5px 12px;cursor:pointer;
+  transition:background var(--transition);
+}
+.revisit-btn:hover{background:rgba(255,255,255,.08)}
+
+/* ═══════════════════════════════════
+   STEP TABS
+═══════════════════════════════════ */
+.step-tabs{
+  display:flex;align-items:stretch;
+  background:var(--bg2);border-bottom:1px solid var(--border-dark);
+  padding:0 16px;gap:0;overflow-x:auto;flex-shrink:0;
+  scrollbar-width:none;
+}
+.step-tabs::-webkit-scrollbar{display:none}
+.step-tab{
+  display:flex;align-items:center;gap:7px;
+  padding:13px 14px;
+  font-size:.78rem;font-weight:600;
+  color:var(--text-dark2);
+  border-bottom:2px solid transparent;
+  white-space:nowrap;
+  user-select:none;
+  transition:color var(--transition),border-color var(--transition);
+}
+.step-tab.active{color:#fff;border-bottom-color:#fff;cursor:default}
+.step-tab.done{color:#34C759;cursor:pointer}
+.step-tab.done:hover{color:#5ADE79}
+.step-tab.unlocked{color:var(--text-dark2);cursor:pointer}
+.step-tab.unlocked:hover{color:#fff}
+.step-tab.locked{opacity:.8;cursor:not-allowed}
+.step-num{
+  width:17px;height:17px;border-radius:50%;
+  background:transparent;
+  border:1.5px solid rgba(255,255,255,.45);
+  color:rgba(255,255,255,.75);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.62rem;font-weight:700;flex-shrink:0;
+}
+.step-tab.active .step-num{background:#fff;border-color:#fff;color:#000}
+.step-tab.done .step-num{background:#34C759;border-color:#34C759;color:#fff}
+.step-tab.unlocked .step-num{border-color:rgba(255,255,255,.55);color:rgba(255,255,255,.85)}
+.step-connector{
+  width:20px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;color:rgba(255,255,255,.38);
+}
+.step-back-btn{
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  padding:0 14px 0 10px;
+  font-size:.8rem;font-weight:600;color:var(--text-dark2);
+  border-right:1px solid var(--border-dark);
+  margin-right:4px;flex-shrink:0;
+  cursor:pointer;white-space:nowrap;
+  transition:color var(--transition);
+  align-self:stretch;
+}
+.step-back-btn:hover{color:#fff}
+
+/* ═══════════════════════════════════
+   VIDEO PLAYER PAGE
+═══════════════════════════════════ */
+#page-video{
+  padding:0;background:var(--bg);
+  display:none;flex-direction:column;
+  height:calc(100vh - 56px);
+  overflow:hidden;
+}
+#page-video.active{display:flex}
+
+/* Lesson content panels */
+#lesson-panel-video{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
+#lesson-panel-video.hidden{display:none!important}
+#lesson-panel-article{flex:1;overflow-y:auto}
+#lesson-panel-article.hidden{display:none!important}
+#lesson-panel-aimentor{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;background:var(--surface)}
+#lesson-panel-aimentor.hidden{display:none!important}
+
+/* 9:16 video wrapper */
+.video-area-wrapper{
+  background:#000;
+  display:flex;align-items:center;justify-content:center;
+  flex:1;min-height:0;
+  overflow:hidden;
+}
+.video-area{
+  aspect-ratio:9/16;
+  height:100%;
+  max-height:100%;
+  position:relative;
+  background:#000;
+  display:flex;align-items:stretch;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.video-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(170deg,#8B5CF6 0%,#6D58D6 35%,#4F6BDB 70%,#5B7FE8 100%);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:0;
+  position:relative;
+}
+.video-placeholder-text{
+  font-size:1.5rem;font-weight:500;color:#111;
+  text-align:center;line-height:1.4;
+  background:#fff;padding:10px 20px;border-radius:6px;
+  max-width:75%;
+}
+
+.video-subtitles{
+  position:absolute;bottom:140px;left:0;right:0;
+  text-align:center;pointer-events:none;
+}
+.video-subtitles span{
+  display:inline-block;
+  background:rgba(0,0,0,.7);color:#fff;
+  font-size:1rem;font-weight:600;padding:5px 12px;border-radius:6px;
+  line-height:1.4;
+}
+
+/* Video controls overlay */
+.video-controls{
+  position:absolute;bottom:0;left:0;right:0;z-index:10;
+  background:linear-gradient(0deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.6) 80%,transparent 100%);
+  backdrop-filter:blur(4px);
+  padding:24px 20px 20px;
+  opacity:1;
+  transition:opacity .35s ease;
+}
+.video-controls.controls-hidden{
+  opacity:0;
+  pointer-events:none;
+}
+.video-lesson-title{
+  font-size:.9rem;font-weight:600;color:#fff;margin-bottom:10px;
+}
+.video-progress{
+  height:3px;background:rgba(255,255,255,.2);border-radius:2px;
+  margin-bottom:6px;position:relative;cursor:pointer;
+}
+.video-progress-fill{
+  height:100%;background:#fff;border-radius:2px;width:15%;
+  position:relative;
+}
+.video-progress-fill::after{
+  content:'';position:absolute;right:-4px;top:50%;
+  transform:translateY(-50%);
+  width:8px;height:8px;border-radius:50%;background:#fff;
+}
+.video-time-row{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.72rem;color:rgba(255,255,255,.5);
+  margin-bottom:14px;
+}
+.speed-btns{display:flex;gap:5px}
+.speed-btn{
+  font-size:.68rem;font-weight:700;
+  padding:3px 7px;border-radius:4px;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);
+  cursor:pointer;border:none;
+  transition:background var(--transition),color var(--transition);
+}
+.speed-btn.active{background:rgba(255,255,255,.9);color:#000}
+.speed-btn:hover:not(.active){background:rgba(255,255,255,.2);color:#fff}
+.video-btns{
+  display:flex;align-items:center;justify-content:center;gap:28px;
+  margin-bottom:16px;
+}
+.vbtn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:#fff;cursor:pointer;opacity:.8;transition:opacity var(--transition);
+}
+.vbtn:hover{opacity:1}
+.vbtn-icon{font-size:1.2rem}
+.vbtn-label{font-size:.65rem}
+.vbtn-play .vbtn-icon{
+  width:44px;height:44px;border-radius:50%;
+  background:#fff;color:#000;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+}
+.video-actions{display:flex;flex-direction:column;gap:8px}
+.btn-ai-mentor{
+  padding:7px 14px;
+  background:#3A3A3C;border:1px solid rgba(255,255,255,.12);
+  color:#fff;font-size:.8rem;font-weight:600;
+  border-radius:20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:background var(--transition);white-space:nowrap;flex-shrink:0;
+}
+.btn-ai-mentor:hover{background:#4A4A4E}
+.btn-continue{
+  width:100%;padding:12px;
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  color:#fff;font-size:.875rem;font-weight:600;
+  border-radius:var(--radius-sm);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  border:none;
+  transition:opacity var(--transition);
+}
+.btn-continue:hover{opacity:.88}
+.btn-continue.locked-btn{
+  background:var(--bg3);color:var(--text-dark2);cursor:not-allowed;opacity:.5;
+}
+
+/* ═══════════════════════════════════
+   ARTICLE SECTION (tab panel)
+═══════════════════════════════════ */
+.lesson-article{
+  background:var(--surface);color:var(--text-light);
+  padding:28px 24px 60px;
+  min-height:100%;
+}
+.lesson-article-label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--text-light2);margin-bottom:18px;
+  background:var(--surface2);border-radius:20px;padding:4px 12px;
+}
+.article-body{
+  max-width:640px;width:100%;margin:0 auto;
+}
+.article-h1{font-size:1.2rem;font-weight:800;margin-bottom:14px;line-height:1.3}
+.article-h2{font-size:1rem;font-weight:700;margin:20px 0 8px}
+.article-p{font-size:.9rem;line-height:1.7;color:#2C2C2E;margin-bottom:12px}
+.article-li{font-size:.9rem;color:#2C2C2E;margin-bottom:6px;padding-left:14px;position:relative;line-height:1.6}
+.article-li::before{content:'•';position:absolute;left:0;color:var(--text-light2)}
+.article-quote{
+  border-left:3px solid var(--grad-start);
+  padding:12px 16px;background:#F8F8FF;border-radius:0 8px 8px 0;
+  margin:14px 0;font-size:.88rem;font-style:italic;color:#444;line-height:1.6;
+}
+.article-footer{
+  max-width:640px;margin:24px auto 0;
+  display:flex;flex-direction:column;gap:10px;
+}
+.btn-full{
+  width:100%;padding:13px;background:var(--text-light);color:#fff;
+  border-radius:var(--radius-sm);font-size:.875rem;font-weight:600;
+  cursor:pointer;text-align:center;border:none;
+  transition:background var(--transition);
+}
+.btn-full:hover{background:#333}
+.btn-full-outline{
+  width:100%;padding:13px;background:transparent;color:var(--text-light);
+  border-radius:var(--radius-sm);font-size:.875rem;font-weight:600;
+  cursor:pointer;text-align:center;
+  border:1.5px solid var(--border-light);
+  transition:background var(--transition);
+}
+.btn-full-outline:hover{background:var(--surface2)}
+
+/* ═══════════════════════════════════
+   MENTOR DROPDOWN (global quick-chat)
+═══════════════════════════════════ */
+.mentor-dropdown{
+  position:fixed;
+  top:60px;right:16px;
+  width:340px;
+  max-height:480px;
+  background:var(--surface);
+  border:1px solid var(--border-light);
+  border-radius:var(--radius);
+  box-shadow:0 8px 40px rgba(0,0,0,.22);
+  display:flex;flex-direction:column;
+  z-index:400;
+  opacity:0;transform:translateY(-10px);pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;
+}
+.mentor-dropdown.open{opacity:1;transform:translateY(0);pointer-events:all}
+.mentor-dropdown-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px;
+  border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
+}
+.mentor-dropdown-chat{
+  flex:1;min-height:0;overflow-y:auto;
+  padding:14px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.md-voice-section{
+  flex-shrink:0;
+  border-top:1px solid var(--border-light);
+  padding:18px 16px 20px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  background:var(--surface);
+}
+.mentor-dropdown-backdrop{
+  position:fixed;inset:0;z-index:399;
+}
+@media(max-width:600px){
+  .mentor-dropdown{width:calc(100vw - 24px);right:12px}
+}
+
+/* ═══════════════════════════════════
+   AI MENTOR INLINE PANEL
+═══════════════════════════════════ */
+/* AI mentor inline panel — same flow as video/artikel */
+#lesson-panel-aimentor{
+  display:flex;flex-direction:column;
+  flex:1;overflow:hidden;
+  background:var(--surface);
+}
+
+/* Chat messages area */
+.ai-chat{flex:1;min-height:0;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+.ai-msg{display:flex;gap:10px;align-items:flex-start}
+.mentor-avatar{
+  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+  background:var(--text-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;color:#fff;font-weight:700;
+}
+.mentor-bubble{
+  background:var(--surface2);border-radius:0 12px 12px 12px;
+  padding:10px 13px;font-size:.85rem;color:var(--text-light);
+  line-height:1.55;max-width:85%;
+}
+.user-msg{flex-direction:row-reverse}
+.user-avatar-sm{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:var(--purple);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;color:#fff;font-weight:700;
+}
+.user-bubble{
+  background:var(--text-light);color:#fff;
+  border-radius:12px 0 12px 12px;
+  padding:10px 13px;font-size:.85rem;line-height:1.55;
+  max-width:85%;
+}
+.mentor-name{font-size:.72rem;font-weight:600;color:var(--text-light2);margin-bottom:4px}
+.user-name-label{font-size:.72rem;color:var(--text-light2);margin-bottom:4px;text-align:right}
+.typing{display:flex;gap:4px;align-items:center;padding:4px 2px}
+.typing span{
+  width:6px;height:6px;border-radius:50%;background:var(--text-light2);
+  animation:blink 1.2s infinite;
+}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+/* Chat input */
+.ai-input-area{
+  padding:12px 14px 16px;border-top:1px solid var(--border-light);flex-shrink:0;
+}
+.ai-input-row{
+  display:flex;align-items:center;gap:8px;
+}
+.ai-input-wrap{
+  flex:1;display:flex;align-items:center;gap:8px;
+  background:var(--surface2);border:1px solid var(--border-light);
+  border-radius:20px;padding:8px 14px;
+}
+.ai-input{
+  flex:1;border:none;background:none;outline:none;
+  font:inherit;font-size:.875rem;color:var(--text-light);
+}
+.ai-input::placeholder{color:var(--text-light2)}
+.ai-send-btn{
+  background:none;border:none;cursor:pointer;
+  color:var(--grad-start);font-size:1rem;padding:0;line-height:1;
+  transition:opacity var(--transition);
+}
+.ai-send-btn:hover{opacity:.7}
+/* Quiz arrow button — subtle next-step indicator */
+.ai-quiz-arrow{
+  flex-shrink:0;
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  color:#fff;font-size:1.3rem;font-weight:300;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border:none;
+  box-shadow:0 2px 8px rgba(124,111,205,.4);
+  transition:opacity var(--transition),transform var(--transition);
+}
+.ai-quiz-arrow:hover{opacity:.88;transform:scale(1.08)}
+/* Mic toggle button next to input */
+.ai-voice-btn{
+  flex-shrink:0;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--surface2);border:1.5px solid var(--border-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;cursor:pointer;
+  transition:background var(--transition),border-color var(--transition),box-shadow var(--transition);
+}
+.ai-voice-btn:hover{background:#f0f0f5;border-color:#ccc}
+
+/* Voice input section (replaces text input when in voice mode) */
+.voice-input-section{
+  background:var(--surface);
+  border-top:1px solid var(--border-light);
+  padding:24px 20px 28px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  flex-shrink:0;
+}
+/* Hold-to-talk button */
+.mic-btn{
+  width:72px;height:72px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;cursor:pointer;border:none;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+  user-select:none;-webkit-user-select:none;
+}
+.mic-btn.idle{
+  background:var(--surface2);
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.mic-btn.active{
+  background:var(--red);
+  box-shadow:0 0 0 10px var(--red-bg),0 4px 16px rgba(192,57,43,.35);
+  transform:scale(1.08);
+}
+.mic-label{font-size:.78rem;color:var(--text-light2);text-align:center}
+
+/* ═══════════════════════════════════
+   QUIZ INLINE PANEL
+═══════════════════════════════════ */
+#lesson-panel-quiz{
+  display:flex;flex-direction:column;
+  flex:1;overflow:hidden;
+  background:var(--surface);
+}
+#lesson-panel-quiz.hidden{display:none!important}
+#lesson-panel-avslut{
+  display:flex;flex-direction:column;
+  flex:1;overflow:hidden;
+  background:var(--surface);
+}
+#lesson-panel-avslut.hidden{display:none!important}
+.quiz-body{padding:22px 22px 20px;overflow-y:auto;flex:1}
+.quiz-progress{font-size:.8rem;color:var(--text-light2);margin-bottom:12px}
+.quiz-question{font-size:1rem;font-weight:700;color:var(--text-light);margin-bottom:20px;line-height:1.45}
+.quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.quiz-option{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:13px 15px;border-radius:10px;
+  border:1.5px solid var(--border-light);
+  cursor:pointer;transition:var(--transition);
+  background:var(--surface);
+}
+.quiz-option:hover{border-color:#A89EE8;background:#FAFAFF}
+.quiz-option.selected{border-color:var(--purple);background:#FAF8FF}
+.quiz-check{
+  width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border-light);
+  flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;font-size:.55rem;
+  transition:var(--transition);
+}
+.quiz-option.selected .quiz-check{background:var(--purple);border-color:var(--purple);color:#fff}
+.quiz-option-text{font-size:.875rem;color:var(--text-light);line-height:1.5}
+.quiz-footer{padding:0 22px 20px;flex-shrink:0}
+
+/* ═══════════════════════════════════
+   BUTTONS
+═══════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:10px 20px;border-radius:var(--radius-sm);
+  font-size:.875rem;font-weight:600;cursor:pointer;border:none;
+  transition:var(--transition);
+}
+.btn-dark{background:var(--text-light);color:#fff}
+.btn-dark:hover{background:#333}
+.btn-ghost-dark{
+  background:transparent;color:var(--text-dark);
+  border:1.5px solid var(--border-dark);
+}
+.btn-ghost-dark:hover{background:var(--bg3)}
+.btn-ghost-light{
+  background:transparent;color:var(--text-light2);
+  border:1.5px solid var(--border-light);
+}
+.btn-ghost-light:hover{background:var(--surface2)}
+.btn-sm{padding:7px 14px;font-size:.8rem}
+.btn-primary{
+  background:linear-gradient(135deg,var(--grad-start),var(--grad-end));
+  color:#fff;
+}
+.btn-primary:hover{opacity:.9}
+
+/* ═══════════════════════════════════
+   CONFETTI
+═══════════════════════════════════ */
+#confetti-canvas{position:fixed;inset:0;z-index:999;pointer-events:none}
+#confetti-canvas.hidden{display:none!important}
+
+/* ═══════════════════════════════════
+   PROFILE PANEL
+═══════════════════════════════════ */
+.profile-panel{
+  position:fixed;inset:0;z-index:500;
+  display:flex;align-items:flex-end;
+}
+.profile-panel.hidden{display:none!important}
+.profile-panel-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.profile-panel-content{
+  position:relative;z-index:1;
+  background:var(--bg2);
+  border-radius:20px 20px 0 0;
+  width:100%;max-width:480px;margin:0 auto;
+  padding:22px 20px 32px;
+  border:1px solid var(--border-dark);
+  border-bottom:none;
+  animation:slideUp .22s ease;
+}
+.profile-panel-drag{width:40px;height:4px;border-radius:2px;background:var(--bg3);margin:0 auto 22px}
+.profile-panel-user{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border-dark)}
+.profile-panel-name{font-size:.95rem;font-weight:700}
+.profile-panel-email{font-size:.78rem;color:var(--text-dark2)}
+.profile-action-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:var(--radius-sm);
+  background:var(--bg3);cursor:pointer;margin-bottom:8px;
+  transition:background var(--transition);font-size:.875rem;font-weight:500;
+}
+.profile-action-item:hover{background:rgba(255,255,255,.1)}
+.profile-action-icon{font-size:1rem;width:20px;text-align:center}
+.profile-action-danger{color:#FF3B30}
+.sidebar-footer{transition:background var(--transition);border-radius:0 0 var(--radius-sm) var(--radius-sm);cursor:pointer}
+.sidebar-footer:hover{background:rgba(255,255,255,.06)}
+
+/* ═══════════════════════════════════
+   GAMIFICATION
+═══════════════════════════════════ */
+.game-section{background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:20px;margin-bottom:14px}
+.game-section-title{font-size:.95rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.xp-level-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.xp-level-badge{display:flex;align-items:center;gap:9px}
+.xp-level-icon{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--grad-start),var(--grad-end));display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:#fff}
+.xp-level-label{font-size:1rem;font-weight:800}
+.xp-level-sub{font-size:.72rem;color:var(--text-dark2)}
+.xp-next{font-size:.75rem;color:var(--text-dark2)}
+.xp-track{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-bottom:6px}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--grad-start),var(--grad-end));border-radius:4px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.xp-track-labels{display:flex;justify-content:space-between;font-size:.68rem;color:var(--text-dark2)}
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:12px}
+.badge-item{display:flex;flex-direction:column;align-items:center;gap:6px}
+.badge-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:transform .15s ease}
+.badge-icon.earned{background:linear-gradient(135deg,rgba(124,111,205,.25),rgba(91,92,226,.25));border:1.5px solid rgba(124,111,205,.4)}
+.badge-icon.locked{background:var(--bg3);opacity:.32;filter:grayscale(1)}
+.badge-icon:hover{transform:scale(1.08)}
+.badge-name{font-size:.62rem;color:var(--text-dark2);text-align:center;line-height:1.3}
+.streak-days{display:flex;gap:6px;flex-wrap:wrap}
+.streak-day{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:34px}
+.streak-dot{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+.streak-dot.active{background:linear-gradient(135deg,#FF9F0A,#FF6B00);color:#fff;box-shadow:0 2px 8px rgba(255,160,10,.35)}
+.streak-dot.done{background:rgba(52,199,89,.2);color:#34C759;font-size:.9rem}
+.streak-dot.today{background:linear-gradient(135deg,var(--grad-start),var(--grad-end));color:#fff;box-shadow:0 2px 10px rgba(124,111,205,.45)}
+.streak-dot.empty{background:var(--bg3);color:var(--text-dark2)}
+.streak-day-label{font-size:.6rem;color:var(--text-dark2)}
+.leaderboard-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--border-dark)}
+.leaderboard-row:first-child{border-top:none}
+.lr-rank{width:22px;text-align:center;font-size:.82rem;font-weight:800;flex-shrink:0}
+.lr-rank.gold{color:#FFD60A}
+.lr-rank.silver{color:#B0B0B8}
+.lr-rank.bronze{color:#CD8A60}
+.lr-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;flex-shrink:0}
+.lr-name{flex:1;font-size:.85rem;font-weight:600}
+.lr-xp{font-size:.78rem;color:var(--text-dark2)}
+.lr-you{font-size:.62rem;font-weight:600;color:#A89EE8;background:rgba(124,111,205,.15);border-radius:10px;padding:2px 7px;margin-left:4px}
+.challenge-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--border-dark)}
+.challenge-item:first-child{border-top:none;padding-top:0}
+.challenge-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;background:var(--bg3)}
+.challenge-info{flex:1;min-width:0}
+.challenge-title{font-size:.85rem;font-weight:600;margin-bottom:3px}
+.challenge-sub{font-size:.72rem;color:var(--text-dark2)}
+.challenge-bar-bg{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:6px}
+.challenge-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--grad-start),var(--grad-end))}
+.challenge-pct{font-size:.72rem;font-weight:700;color:var(--text-dark2);flex-shrink:0}
+
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 30px rgba(0,0,0,.4)}
+  .sidebar-overlay.open{display:block}
+  .main{margin-left:0}
+  .hamburger{display:flex}
+  .article-ai-btn{left:0}
+}
+@media(max-width:700px){
+  /* Step tabs: hide text labels, show only number circles */
+  .step-label{display:none}
+  .step-back-label{display:none}
+  .step-tab{padding:12px 10px;gap:0}
+  .step-back-btn{padding:0 10px;font-size:1rem;border-right:1px solid var(--border-dark)}
+  .step-connector{width:12px;font-size:.65rem}
+}
+@media(max-width:600px){
+  .page{padding:16px}
+  #page-video .video-controls{padding:12px 16px 16px}
+  #page-video{height:calc(100vh - 56px)}
+  .video-area-wrapper{min-height:200px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     APP SHELL
+═══════════════════════════════ -->
+<div id="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <svg class="logo-mark" viewBox="0 0 26 26" fill="none">
+        <circle cx="9" cy="9" r="7" fill="#7C6FCD"/>
+        <circle cx="17" cy="9" r="7" fill="#E8837A" opacity=".85"/>
+        <circle cx="13" cy="17" r="7" fill="#5B5CE2" opacity=".8"/>
+      </svg>
+      Pacy
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">Lärande</div>
+      <div class="nav-item active" id="nav-programs" onclick="goTo('programs',this)">
+        <span class="nav-icon">📚</span> Program
+      </div>
+      <div class="nav-item" id="nav-progress" onclick="goTo('progress',this)">
+        <span class="nav-icon">📊</span> Min progress
+      </div>
+    </nav>
+    <div class="sidebar-footer" onclick="openProfilePanel()" title="Kontoinställningar">
+      <div class="avatar-sm">JK</div>
+      <div style="flex:1;min-width:0">
+        <div class="sidebar-user-name">Joakim Kempff</div>
+        <div class="sidebar-user-role">Lärande</div>
+      </div>
+      <span style="font-size:.8rem;color:var(--text-dark2);flex-shrink:0">⚙</span>
+    </div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+    <!-- TOPBAR -->
+    <header class="topbar" id="topbar">
+      <button class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
+      <span class="topbar-title" id="topbar-title">Program</span>
+      <div class="topbar-actions" id="topbar-actions"></div>
+      <button class="btn-ai-mentor" id="topbar-ai-btn" onclick="toggleMentorDropdown()">Fråga AI-mentor</button>
+    </header>
+
+    <!-- ── PROGRAMS PAGE ── -->
+    <div class="page active" id="page-programs">
+      <div class="page-heading">Dina program</div>
+      <div class="page-sub">Välj ett program att fortsätta eller starta</div>
+      <div class="programs-list" id="programs-list"></div>
+    </div>
+
+    <!-- ── CHAPTER OVERVIEW PAGE ── -->
+    <div class="page" id="page-chapters">
+      <button class="back-btn" onclick="goTo('programs', document.getElementById('nav-programs'))">
+        ← Program
+      </button>
+      <div id="chapters-content"></div>
+    </div>
+
+    <!-- ── LESSON PAGE ── -->
+    <div class="page" id="page-video">
+
+      <!-- Step tabs -->
+      <div class="step-tabs" id="step-tabs"></div>
+
+      <!-- VIDEO PANEL -->
+      <div id="lesson-panel-video" onmousemove="showVideoControls()" onmouseleave="scheduleHideControls()">
+        <!-- 9:16 video wrapper -->
+        <div class="video-area-wrapper">
+          <div class="video-area" id="video-area">
+            <div class="video-placeholder">
+              <div class="video-placeholder-text">Välkommen!<br>Den här videon<br>kommer snart<br>att bytas ut.</div>
+            </div>
+            <div class="video-subtitles">
+              <span id="video-sub">säljare underskattar: den första</span>
+            </div>
+
+            <!-- Video controls — absolut overlay längst ner -->
+            <div class="video-controls" id="video-controls">
+          <div class="video-lesson-title" id="video-lesson-title">Öppningen</div>
+          <div class="video-progress"><div class="video-progress-fill" id="vpbar"></div></div>
+          <div class="video-time-row">
+            <span id="vtime">0:00</span>
+            <div class="speed-btns">
+              <button class="speed-btn active" onclick="setSpeed(1,this)">1×</button>
+              <button class="speed-btn" onclick="setSpeed(1.5,this)">1.5×</button>
+              <button class="speed-btn" onclick="setSpeed(2,this)">2×</button>
+            </div>
+            <span id="vtotal">-3:21</span>
+          </div>
+          <div class="video-btns">
+            <div class="vbtn" onclick="jumpToStart()">
+              <span class="vbtn-icon">⏮</span><span class="vbtn-label">Början</span>
+            </div>
+            <div class="vbtn" onclick="skipBack()">
+              <span class="vbtn-icon">↺</span><span class="vbtn-label">10s</span>
+            </div>
+            <div class="vbtn vbtn-play" onclick="togglePlay(this)">
+              <span class="vbtn-icon" id="play-icon">⏸</span>
+            </div>
+            <div class="vbtn" onclick="skipFwd()">
+              <span class="vbtn-icon">↻</span><span class="vbtn-label">10s</span>
+            </div>
+            <div class="vbtn" onclick="jumpToEnd()">
+              <span class="vbtn-icon">⏭</span><span class="vbtn-label">Slutet</span>
+            </div>
+          </div>
+          <div class="video-actions">
+            <button class="btn-continue" id="btn-to-article" style="display:none" onclick="goToLessonStep('artikel')">
+              Fortsätt till Artikel →
+            </button>
+            <div id="video-unlock-hint" style="text-align:center;font-size:.74rem;color:rgba(255,255,255,.6);padding:5px 0;display:none">
+              ⏳ Se klart för att låsa upp nästa steg
+            </div>
+          </div>
+          </div><!-- end .video-controls -->
+          </div><!-- end .video-area -->
+        </div><!-- end .video-area-wrapper -->
+      </div><!-- end #lesson-panel-video -->
+      <!-- ↑ This closes #lesson-panel-video (opened at VIDEO PANEL comment) -->
+
+      <!-- ARTICLE PANEL (hidden until Artikel tab unlocked) -->
+      <div id="lesson-panel-article" class="hidden">
+        <div class="lesson-article">
+          <div class="article-body">
+            <div class="lesson-article-label">📄 Textartikel</div>
+            <h1 class="article-h1">Den brutala sanningen om öppningar</h1>
+            <p class="article-p">Här är vad som händer i kundens huvud de första 60 sekunderna:</p>
+            <ul style="margin-bottom:14px">
+              <li class="article-li">"Vem är den här personen?"</li>
+              <li class="article-li">"Kommer detta slösa min tid?"</li>
+              <li class="article-li">"Vet de ens vad vi håller på med?"</li>
+              <li class="article-li">"Hur länge kommer detta ta?"</li>
+            </ul>
+            <p class="article-p">Om du inte adresserar dessa frågor direkt, spelar det ingen roll hur bra resten av mötet är. Kunden har redan checkat ut mentalt.</p>
+            <h2 class="article-h2">Why-What-Next: Ramverket som ändrar allt</h2>
+            <p class="article-p">Glöm långa företagspresentationer. Skippa namnandet av alla era kontor. Det finns ett ramverk som faktiskt fungerar:</p>
+            <div class="article-quote">"Tack för att du tog dig tid idag. Som vi pratade om med Maria [SDR] så är vi här för att diskutera era utmaningar med [specifikt område]. Tanken är att vi..."</div>
+            <p class="article-p"><strong>Why</strong> – Varför vi träffas idag &nbsp;<strong>What</strong> – Vad vi ska prata om &nbsp;<strong>Next</strong> – Vad som händer efter mötet</p>
+            <p class="article-p">Det låter enkelt för att vara sant? Det är just därför det fungerar. När du ger dem kartan i form av en tydlig struktur, slappnar de av och börjar lyssna på riktigt.</p>
+            <p class="article-p">En vanlig misstag är att starta med en presentation av sitt eget företag. Det skapar omedelbart en känsla av "oss vs dem" och kunden sätter upp mentala murar. Undvik det!</p>
+            <h2 class="article-h2">Tidsramen är din bästa vän</h2>
+            <p class="article-p">Säg alltid hur lång tid mötet tar. Det gör att kunden kan slappna av och fokusera, istället för att hela tiden undra "när slutar detta?". Kombinera med Why-What-Next så har du en kraftfull öppning.</p>
+            <div class="article-footer">
+              <div id="article-read-hint" style="text-align:center;font-size:.74rem;color:var(--text-light2);margin-bottom:10px">
+                ⬇ Scrolla till botten för att låsa upp nästa steg
+              </div>
+              <button class="btn-continue" id="btn-to-aimentor" style="display:none" onclick="openAIPanel()">
+                Fortsätt till Övningsmoment →
+              </button>
+            </div>
+            <!-- Scroll sentinel for auto-unlock -->
+            <div id="article-scroll-sentinel" style="height:4px;margin-top:16px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI MENTOR PANEL (inline, same as video/artikel) -->
+      <div id="lesson-panel-aimentor" class="hidden">
+
+
+        <!-- Shared conversation — always visible regardless of input mode -->
+        <div class="ai-chat" id="ai-chat"></div>
+
+        <!-- TEXT INPUT (default) -->
+        <div id="ai-text-input" class="ai-input-area">
+          <div class="ai-input-row">
+            <div class="ai-input-wrap">
+              <input class="ai-input" id="ai-input" placeholder="Svara här…" onkeydown="handleAIEnter(event)"/>
+              <button class="ai-send-btn" onclick="sendAIMessage()">➤</button>
+            </div>
+            <button class="ai-voice-btn" onclick="switchToVoice()" title="Röstchatt">🎤</button>
+            <button class="ai-quiz-arrow" id="ai-quiz-cta" style="display:none" onclick="goToLessonStep('quiz')" title="Gå till Quiz">›</button>
+          </div>
+        </div>
+
+        <!-- VOICE INPUT (shown when switching to voice mode) -->
+        <div id="ai-voice-input" class="voice-input-section" style="display:none">
+          <button class="mic-btn idle" id="micBtn"
+            onmousedown="startMic()" onmouseup="stopMic()" onmouseleave="stopMic()"
+            ontouchstart="startMic(event)" ontouchend="stopMic(event)">🎤</button>
+          <span class="mic-label" id="micLabel">Håll in för att prata</span>
+          <div style="display:flex;align-items:center;gap:10px">
+            <button style="font-size:.78rem;color:var(--text-light2);background:none;border:none;cursor:pointer;padding:4px 8px" onclick="switchToText()">← Byt till text</button>
+            <button class="ai-quiz-arrow" id="ai-quiz-cta-voice" style="display:none" onclick="goToLessonStep('quiz')" title="Gå till Quiz">›</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CELEBRATION PANEL — always the final step -->
+      <div id="lesson-panel-avslut" class="hidden">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px 24px;gap:20px;text-align:center;overflow-y:auto">
+          <div style="font-size:3.2rem">🎉</div>
+          <div style="font-size:1.3rem;font-weight:800;color:var(--text-light)">Session klar!</div>
+          <div style="font-size:.9rem;color:var(--text-light2);line-height:1.6;max-width:280px">Bra jobbat! Du har klarat av alla moment i den här sessionen.</div>
+          <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;margin-top:12px">
+            <button id="avslut-next-btn" class="btn btn-dark" style="display:none" onclick="goToNextLesson()">Gå vidare till nästa session →</button>
+            <button class="btn" style="background:transparent;border:1.5px solid var(--purple);color:var(--purple);font-weight:600" onclick="goToChapters()">Tillbaka till översikten</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUIZ PANEL (inline, same as video/artikel/aimentor) -->
+      <div id="lesson-panel-quiz" class="hidden">
+        <div class="quiz-body">
+          <div class="quiz-progress" id="quiz-progress">1/3</div>
+          <div class="quiz-question" id="quiz-question"></div>
+          <div class="quiz-options" id="quiz-options"></div>
+        </div>
+        <div class="quiz-footer">
+          <button class="btn btn-dark" style="width:100%" id="quiz-next-btn" onclick="nextQuestion()">Nästa →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── PROGRESS PAGE ── -->
+    <div class="page" id="page-progress">
+      <div class="page-heading">Min progress</div>
+      <div class="page-sub">Din läranderesa i siffror och utmärkelser</div>
+
+      <!-- Stat cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:14px">
+        <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
+          <div style="font-size:1.5rem;margin-bottom:6px">✅</div>
+          <div style="font-size:1.6rem;font-weight:800">12</div>
+          <div style="font-size:.78rem;color:var(--text-dark2)">Sessioner klara</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
+          <div style="font-size:1.5rem;margin-bottom:6px">⏱</div>
+          <div style="font-size:1.6rem;font-weight:800">6.4h</div>
+          <div style="font-size:.78rem;color:var(--text-dark2)">Total lärartid</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
+          <div style="font-size:1.5rem;margin-bottom:6px">🔥</div>
+          <div style="font-size:1.6rem;font-weight:800">7</div>
+          <div style="font-size:.78rem;color:var(--text-dark2)">Dagars streak</div>
+        </div>
+        <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:18px">
+          <div style="font-size:1.5rem;margin-bottom:6px">⭐</div>
+          <div style="font-size:1.6rem;font-weight:800">2 480</div>
+          <div style="font-size:.78rem;color:var(--text-dark2)">XP totalt</div>
+        </div>
+      </div>
+
+      <!-- XP / Level -->
+      <div class="game-section">
+        <div class="xp-level-row">
+          <div class="xp-level-badge">
+            <div class="xp-level-icon">4</div>
+            <div>
+              <div class="xp-level-label">Säljare Nivå 4</div>
+              <div class="xp-level-sub">Avancerad Utövare</div>
+            </div>
+          </div>
+          <div class="xp-next">520 XP kvar till Nivå 5</div>
+        </div>
+        <div class="xp-track"><div class="xp-fill" style="width:68%"></div></div>
+        <div class="xp-track-labels"><span>2 480 XP</span><span>3 000 XP</span></div>
+      </div>
+
+      <!-- Streak calendar -->
+      <div class="game-section">
+        <div class="game-section-title">🔥 Din streak — 7 dagar i rad!</div>
+        <div class="streak-days">
+          <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Mån</div></div>
+          <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Tis</div></div>
+          <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Ons</div></div>
+          <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Tor</div></div>
+          <div class="streak-day"><div class="streak-dot done">✓</div><div class="streak-day-label">Fre</div></div>
+          <div class="streak-day"><div class="streak-dot active">🔥</div><div class="streak-day-label">Lör</div></div>
+          <div class="streak-day"><div class="streak-dot today">I dag</div><div class="streak-day-label">Sön</div></div>
+          <div class="streak-day"><div class="streak-dot empty">–</div><div class="streak-day-label">Mån</div></div>
+          <div class="streak-day"><div class="streak-dot empty">–</div><div class="streak-day-label">Tis</div></div>
+          <div class="streak-day"><div class="streak-dot empty">–</div><div class="streak-day-label">Ons</div></div>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="game-section">
+        <div class="game-section-title">🏅 Utmärkelser</div>
+        <div class="badges-grid">
+          <div class="badge-item"><div class="badge-icon earned">🚀</div><div class="badge-name">Snabbstart</div></div>
+          <div class="badge-item"><div class="badge-icon earned">🎯</div><div class="badge-name">Precisions­sälj</div></div>
+          <div class="badge-item"><div class="badge-icon earned">🔥</div><div class="badge-name">7-dagars streak</div></div>
+          <div class="badge-item"><div class="badge-icon earned">💬</div><div class="badge-name">AI-dialog</div></div>
+          <div class="badge-item"><div class="badge-icon earned">📚</div><div class="badge-name">Kurs­klar</div></div>
+          <div class="badge-item"><div class="badge-icon locked">🏆</div><div class="badge-name">Mästare</div></div>
+          <div class="badge-item"><div class="badge-icon locked">⚡</div><div class="badge-name">Blixtsälj</div></div>
+          <div class="badge-item"><div class="badge-icon locked">🌟</div><div class="badge-name">Stjärn­säljare</div></div>
+        </div>
+      </div>
+
+      <!-- Weekly challenges -->
+      <div class="game-section">
+        <div class="game-section-title">⚡ Veckans utmaningar</div>
+        <div class="challenge-item">
+          <div class="challenge-icon">📹</div>
+          <div class="challenge-info">
+            <div class="challenge-title">Se 5 videos den här veckan</div>
+            <div class="challenge-sub">+150 XP bonus</div>
+            <div class="challenge-bar-bg"><div class="challenge-bar-fill" style="width:60%"></div></div>
+          </div>
+          <div class="challenge-pct">3/5</div>
+        </div>
+        <div class="challenge-item">
+          <div class="challenge-icon">🤖</div>
+          <div class="challenge-info">
+            <div class="challenge-title">Chatta med AI-mentor 3 gånger</div>
+            <div class="challenge-sub">+100 XP bonus</div>
+            <div class="challenge-bar-bg"><div class="challenge-bar-fill" style="width:33%"></div></div>
+          </div>
+          <div class="challenge-pct">1/3</div>
+        </div>
+        <div class="challenge-item">
+          <div class="challenge-icon">🧠</div>
+          <div class="challenge-info">
+            <div class="challenge-title">Klara 2 quiz med full poäng</div>
+            <div class="challenge-sub">+200 XP bonus</div>
+            <div class="challenge-bar-bg"><div class="challenge-bar-fill" style="width:0%"></div></div>
+          </div>
+          <div class="challenge-pct">0/2</div>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="game-section">
+        <div class="game-section-title">🏆 Topplista — den här veckan</div>
+        <div class="leaderboard-row">
+          <div class="lr-rank gold">🥇</div>
+          <div class="lr-avatar" style="background:#7C6FCD">SK</div>
+          <div class="lr-name">Sara K.</div>
+          <div class="lr-xp">840 XP</div>
+        </div>
+        <div class="leaderboard-row">
+          <div class="lr-rank silver">🥈</div>
+          <div class="lr-avatar" style="background:#E8837A">ML</div>
+          <div class="lr-name">Marcus L.</div>
+          <div class="lr-xp">720 XP</div>
+        </div>
+        <div class="leaderboard-row">
+          <div class="lr-rank bronze">🥉</div>
+          <div class="lr-avatar" style="background:#5B5CE2">AH</div>
+          <div class="lr-name">Anna H.</div>
+          <div class="lr-xp">610 XP</div>
+        </div>
+        <div class="leaderboard-row">
+          <div class="lr-rank" style="color:var(--text-dark2)">4</div>
+          <div class="lr-avatar" style="background:linear-gradient(135deg,var(--grad-start),var(--grad-end))">JK</div>
+          <div class="lr-name">Joakim K. <span class="lr-you">Du</span></div>
+          <div class="lr-xp">480 XP</div>
+        </div>
+        <div class="leaderboard-row">
+          <div class="lr-rank" style="color:var(--text-dark2)">5</div>
+          <div class="lr-avatar" style="background:#4A90D9">PB</div>
+          <div class="lr-name">Peter B.</div>
+          <div class="lr-xp">390 XP</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── PROFILE PAGE ── -->
+    <div class="page" id="page-profile">
+      <div class="page-heading">Profil</div>
+      <div class="page-sub">Hantera ditt konto</div>
+      <div style="background:var(--bg2);border:1px solid var(--border-dark);border-radius:var(--radius);padding:24px;max-width:480px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px">
+          <div class="avatar-sm" style="width:52px;height:52px;font-size:1rem">JK</div>
+          <div>
+            <div style="font-weight:700">Joakim Kempff</div>
+            <div style="font-size:.82rem;color:var(--text-dark2)">joakim.kempff@pacy.ai</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div>
+            <label style="font-size:.75rem;font-weight:600;color:var(--text-dark2);display:block;margin-bottom:5px">Namn</label>
+            <input value="Joakim Kempff" style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border-dark);border-radius:var(--radius-sm);font:inherit;color:var(--text-dark);outline:none"/>
+          </div>
+          <div>
+            <label style="font-size:.75rem;font-weight:600;color:var(--text-dark2);display:block;margin-bottom:5px">E-post</label>
+            <input value="joakim.kempff@pacy.ai" style="width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border-dark);border-radius:var(--radius-sm);font:inherit;color:var(--text-dark);outline:none"/>
+          </div>
+          <button class="btn btn-primary" style="align-self:flex-start;margin-top:6px">Spara ändringar</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+
+<!-- ═══════════════════════════════
+     MENTOR DROPDOWN (global quick-chat)
+═══════════════════════════════ -->
+<div class="mentor-dropdown" id="mentorDropdown">
+  <!-- Header -->
+  <div class="mentor-dropdown-header">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="mentor-avatar" style="width:26px;height:26px;font-size:.65rem">∞</div>
+      <span style="font-size:.85rem;font-weight:700;color:var(--text-light)">AI-mentor</span>
+    </div>
+    <button onclick="closeMentorDropdown()" style="background:none;border:none;cursor:pointer;color:var(--text-light2);font-size:1.1rem;line-height:1;padding:2px 4px">✕</button>
+  </div>
+
+  <!-- Shared conversation -->
+  <div class="mentor-dropdown-chat" id="mentor-dropdown-chat"></div>
+
+  <!-- Text input (default) -->
+  <div id="md-text-input" class="ai-input-area" style="border-top:1px solid var(--border-light)">
+    <div class="ai-input-row">
+      <div class="ai-input-wrap">
+        <input class="ai-input" id="mentor-dropdown-input" placeholder="Ställ en fråga…" onkeydown="handleMentorDropdownEnter(event)"/>
+        <button class="ai-send-btn" onclick="sendMentorDropdown()">➤</button>
+      </div>
+      <button class="ai-voice-btn" onclick="switchMdToVoice()" title="Röstchatt">🎤</button>
+    </div>
+  </div>
+
+  <!-- Voice input -->
+  <div id="md-voice-input" class="md-voice-section" style="display:none">
+    <button class="mic-btn idle" id="md-micBtn"
+      onmousedown="startMdMic()" onmouseup="stopMdMic()" onmouseleave="stopMdMic()"
+      ontouchstart="startMdMic(event)" ontouchend="stopMdMic(event)">🎤</button>
+    <span class="mic-label" id="md-micLabel">Håll in för att prata</span>
+    <button style="font-size:.78rem;color:var(--text-light2);background:none;border:none;cursor:pointer;padding:4px 8px" onclick="switchMdToText()">← Byt till text</button>
+  </div>
+</div>
+<!-- backdrop to close dropdown on outside click -->
+<div class="mentor-dropdown-backdrop hidden" id="mentorDropdownBackdrop" onclick="closeMentorDropdown()"></div>
+
+<!-- ═══════════════════════════════
+     CONFETTI CANVAS
+═══════════════════════════════ -->
+<canvas id="confetti-canvas" class="hidden"></canvas>
+
+<!-- ═══════════════════════════════
+     PROFILE PANEL
+═══════════════════════════════ -->
+<div class="profile-panel hidden" id="profilePanel">
+  <div class="profile-panel-overlay" onclick="closeProfilePanel()"></div>
+  <div class="profile-panel-content">
+    <div class="profile-panel-drag"></div>
+    <div class="profile-panel-user">
+      <div class="avatar-sm" style="width:46px;height:46px;font-size:.9rem">JK</div>
+      <div>
+        <div class="profile-panel-name">Joakim Kempff</div>
+        <div class="profile-panel-email">joakim.kempff@pacy.ai</div>
+      </div>
+    </div>
+    <div class="profile-action-item" onclick="closeProfilePanel()">
+      <span class="profile-action-icon">👤</span> Redigera profil
+    </div>
+    <div class="profile-action-item" onclick="closeProfilePanel()">
+      <span class="profile-action-icon">🔔</span> Aviseringar
+    </div>
+    <div class="profile-action-item" onclick="closeProfilePanel()">
+      <span class="profile-action-icon">🔒</span> Lösenord &amp; säkerhet
+    </div>
+    <div class="profile-action-item" onclick="closeProfilePanel()">
+      <span class="profile-action-icon">🌐</span> Språk &amp; region
+    </div>
+    <div class="profile-action-item profile-action-danger" onclick="closeProfilePanel()">
+      <span class="profile-action-icon">🚪</span> Logga ut
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ══════════════════════════════════════
+   DATA
+══════════════════════════════════════ */
+const PROGRAMS = [
+  {
+    id:'sales', title:'Pacy Sales Training',
+    thumb:'💼', thumbBg:'#1E1E2E',
+    chapters:3, sessions:3, totalSessions:3, progress:100, status:'done',
+    chapters_data:[
+      {
+        title:'Introduction',
+        lessons:[
+          {title:'Gör karismatiska säljpitchar', time:'10 min', done:true},
+          {title:'Din väg till fler avslut', time:'10 min', done:true},
+        ], pct:100
+      },
+      {
+        title:'Att genomföra ett lyckat möte',
+        lessons:[
+          {title:'Öppningen', time:'10 min', done:true},
+          {title:'Behovsanalysen', time:'10 min', done:true},
+          {title:'Micro-pitchen', time:'10 min', done:true},
+          {title:'Invändningshantering', time:'10 min', done:true},
+          {title:'Kalendersätt & nästa steg', time:'10 min', done:true},
+        ], pct:100
+      },
+      {
+        title:'Att stänga en affär',
+        lessons:[
+          {title:'Från intresse till avslut', time:'10 min', done:true},
+          {title:'Köpsignaler – lär dig att urskilja dem', time:'10 min', done:true},
+          {title:'Hantera förhandling med ACIRT modellen', time:'10 min', done:true},
+          {title:'MAP – gör offerten beslutsbar', time:'15–20 min', done:true},
+          {title:'Orchestrera hela vägen – knyta ihop säcken', time:'15–20 min', done:true},
+        ], pct:100
+      }
+    ]
+  },
+  {
+    id:'collab', title:'Collaboration Art Program',
+    thumb:'🎨', thumbBg:'#1E1520',
+    chapters:2, sessions:3, totalSessions:5, progress:60, status:'active',
+    chapters_data:[
+      {
+        title:'Kreativa grunder',
+        lessons:[
+          {title:'Introduktion till samarbete', time:'24 min', done:true},
+          {title:'Kommunikationsstilar', time:'18 min', done:true},
+        ], pct:100
+      },
+      {
+        title:'Djupdykning',
+        lessons:[
+          {title:'Kreativa metoder', time:'32 min', done:true},
+          {title:'Workshop: Projekt', time:'45 min', done:false},
+          {title:'Avslutande test', time:'15 min', done:false},
+        ], pct:33
+      }
+    ]
+  },
+  {
+    id:'cordial', title:'Cordial Program',
+    thumb:'💌', thumbBg:'#1E1410',
+    chapters:2, sessions:2, totalSessions:3, progress:66, status:'active',
+    chapters_data:[
+      {
+        title:'CRM-grunder',
+        lessons:[
+          {title:'CRM-grunderna', time:'30 min', done:true},
+          {title:'Segmentering i praktiken', time:'25 min', done:true},
+        ], pct:100
+      },
+      {
+        title:'Kampanjer',
+        lessons:[
+          {title:'E-post kampanjer', time:'65 min', done:false},
+        ], pct:0
+      }
+    ]
+  },
+  {
+    id:'riksteatern', title:'Riksteatern Program',
+    thumb:'🎭', thumbBg:'#1A1020',
+    chapters:1, sessions:0, totalSessions:1, progress:0, status:'new',
+    chapters_data:[
+      {title:'Scenkonst', lessons:[{title:'Scenkonst och narrativ',time:'24 min',done:false}], pct:0}
+    ]
+  },
+  {
+    id:'enerpoly', title:'Enerpoly Program',
+    thumb:'⚡', thumbBg:'#1A1800',
+    chapters:1, sessions:0, totalSessions:1, progress:0, status:'new',
+    chapters_data:[
+      {title:'Energimarknaden', lessons:[{title:'Energimarknaden 2026',time:'24 min',done:false}], pct:0}
+    ]
+  },
+];
+
+const QUIZ_QUESTIONS = [
+  {
+    q:'Du startar ett säljmöte med att berätta om företagets historia, kontor i tre städer, och 500+ kunder. Efter fem minuter märker du att kundens energi sjunker. Vad missade du?',
+    opts:[
+      'Du glömde fråga om kundens budget först',
+      'Du borde ha visat en produktdemo direkt',
+      'Du missade att skapa trygghet och fokus genom Why-What-Next – kunden vet inte varför ni träffas eller vad som händer efter',
+    ], ans:2
+  },
+  {
+    q:'En kund säger: "Vi har redan ett liknande system." Vad är det bästa sättet att hantera denna invändning?',
+    opts:[
+      'Förklara varför ert system är överlägset',
+      'Fråga vad de gillar och inte gillar med nuvarande lösning',
+      'Sänk priset direkt för att vinna affären',
+    ], ans:1
+  },
+  {
+    q:'Vilket element är INTE en del av Why-What-Next-ramverket?',
+    opts:[
+      'Varför ni träffas',
+      'Vad ni ska diskutera',
+      'Hur länge mötet kommer ta',
+    ], ans:2
+  }
+];
+
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+let currentProgram = null;
+let currentLesson  = null;
+let quizIndex = 0, quizSelected = null, quizAnswers = [], quizState = 'idle';
+// quizState: 'idle' = ej startat, 'active' = pågår, 'done' = resultat visas
+let aiMode = 'reflektion';
+let micActive = false;
+let videoPlaying = true;
+let videoProgress = 15;
+let videoInterval = null;
+let videoSpeed = 1;
+let controlsTimer = null;
+
+// ── Step state ──────────────────────────────
+// Order: video → artikel → aimentor → quiz
+const STEP_ORDER = ['video','artikel','aimentor','quiz','avslut'];
+const STEP_LABELS = {video:'Video', artikel:'Artikel', aimentor:'Övningsmoment', quiz:'Quiz', avslut:'Klart!'};
+const STEP_ICONS  = {video:'▶', artikel:'📄', aimentor:'🤖', quiz:'🧠', avslut:'🏁'};
+let stepsDone = {video:false, artikel:false, aimentor:false, quiz:false, avslut:false};
+let currentStep = 'video';
+
+function renderStepTabs() {
+  const el = document.getElementById('step-tabs');
+  if (!el) return;
+  const backLabel = currentProgram ? currentProgram.title : 'Tillbaka';
+  const backBtn = `<button class="step-back-btn" onclick="goToChapters()">‹ <span class="step-back-label">${backLabel}</span></button>`;
+  el.innerHTML = backBtn + STEP_ORDER.map((id, i) => {
+    const prevId   = i > 0 ? STEP_ORDER[i-1] : null;
+    const unlocked = i === 0 || stepsDone[prevId];
+    const isActive = currentStep === id;
+    const isDone   = stepsDone[id];
+
+    let cls = 'step-tab';
+    if      (isActive)  cls += ' active';
+    else if (isDone)    cls += ' done unlocked';
+    else if (unlocked)  cls += ' unlocked';
+    else                cls += ' locked';
+
+    const numContent = isDone && !isActive ? '✓' : (i + 1);
+    const onclick = (unlocked && !isActive)
+      ? `goToLessonStep('${id}')`
+      : (!unlocked ? `showLockedHint(this)` : '');
+
+    const connector = i < STEP_ORDER.length - 1
+      ? `<span class="step-connector">›</span>` : '';
+
+    return `<div class="${cls}" onclick="${onclick}">
+      <div class="step-num">${numContent}</div>
+      <span class="step-label">${STEP_LABELS[id]}</span>
+    </div>${connector}`;
+  }).join('');
+}
+
+function goToLessonStep(id) {
+  currentStep = id;
+  const videoPanel    = document.getElementById('lesson-panel-video');
+  const articlePanel  = document.getElementById('lesson-panel-article');
+  const aiPanel       = document.getElementById('lesson-panel-aimentor');
+  const quizPanel     = document.getElementById('lesson-panel-quiz');
+  const avslutPanel   = document.getElementById('lesson-panel-avslut');
+
+  // Hide all panels first
+  videoPanel.classList.add('hidden');
+  articlePanel.classList.add('hidden');
+  if (aiPanel) aiPanel.classList.add('hidden');
+  if (quizPanel) quizPanel.classList.add('hidden');
+  if (avslutPanel) avslutPanel.classList.add('hidden');
+
+  if (id === 'video') {
+    videoPanel.classList.remove('hidden');
+  } else if (id === 'artikel') {
+    articlePanel.classList.remove('hidden');
+    articlePanel.scrollTop = 0;
+    const btnAI = document.getElementById('btn-to-aimentor');
+    const hintEl = document.getElementById('article-read-hint');
+    if (btnAI) btnAI.style.display = stepsDone['artikel'] ? 'flex' : 'none';
+    if (hintEl) hintEl.style.display = stepsDone['artikel'] ? 'none' : 'block';
+    setTimeout(setupArticleScrollDetection, 200);
+  } else if (id === 'aimentor') {
+    if (aiPanel) {
+      aiPanel.classList.remove('hidden');
+      initAIChat();
+    }
+  } else if (id === 'quiz') {
+    if (quizPanel) {
+      quizPanel.classList.remove('hidden');
+      if (quizState === 'idle') {
+        // First time entering quiz for this lesson — start fresh
+        openQuiz();
+      } else if (quizState === 'active') {
+        // Returning mid-quiz — restore current question with previous selection
+        renderQuizQuestion();
+        // Re-apply visual state if user had selected an answer
+        if (quizSelected !== null) {
+          document.querySelectorAll('.quiz-option').forEach((el, idx) => {
+            el.classList.toggle('selected', idx === quizSelected);
+            el.querySelector('.quiz-check').textContent = idx === quizSelected ? '●' : '';
+          });
+        }
+      }
+      // quizState === 'done': panel already shows results, nothing to do
+    }
+  } else if (id === 'avslut') {
+    if (avslutPanel) {
+      avslutPanel.classList.remove('hidden');
+      stepsDone['avslut'] = true;
+      prepareAvslutPanel();
+      launchConfetti();
+    }
+  }
+  renderStepTabs();
+}
+
+function completeStep(id) {
+  if (stepsDone[id]) return; // already done
+  stepsDone[id] = true;
+  renderStepTabs();
+  // Never auto-navigate — just unlock next tab and show CTA
+  if (id === 'video') {
+    // Hide "watch to unlock" hint, show the continue button
+    const hint = document.getElementById('video-unlock-hint');
+    if (hint) hint.style.display = 'none';
+    const btn = document.getElementById('btn-to-article');
+    if (btn) btn.style.display = 'flex';
+    // Keep controls visible so user sees the CTA
+    clearTimeout(controlsTimer);
+    const ctrl = document.getElementById('video-controls');
+    if (ctrl) ctrl.classList.remove('controls-hidden');
+  }
+  // artikel & aimentor: the footer/chat buttons already serve as the CTA
+}
+
+function showLockedHint(el) {
+  const orig = el.style.outline;
+  el.style.outline = '2px solid rgba(255,80,80,.6)';
+  el.style.borderRadius = '4px';
+  setTimeout(() => { el.style.outline = orig; }, 700);
+}
+
+function scrollToVideo() {
+  goToLessonStep('video');
+}
+
+function goToChapters() {
+  stopVideoProgress();
+  goTo('chapters', null);
+  if (currentProgram) document.getElementById('topbar-title').textContent = currentProgram.title;
+}
+
+function findNextUndoneLessonAfterCurrent() {
+  // Returns {progId, ci, li} for the next undone lesson after currentLesson,
+  // or null if no such lesson exists.
+  if (!currentProgram || !currentLesson) return null;
+  let passedCurrent = false;
+  for (let ci = 0; ci < currentProgram.chapters_data.length; ci++) {
+    const ch = currentProgram.chapters_data[ci];
+    for (let li = 0; li < ch.lessons.length; li++) {
+      const lesson = ch.lessons[li];
+      if (passedCurrent && !lesson.done) {
+        return { progId: currentProgram.id, ci, li };
+      }
+      if (lesson === currentLesson) passedCurrent = true;
+    }
+  }
+  return null; // all done or at last session
+}
+
+function prepareAvslutPanel() {
+  const next = findNextUndoneLessonAfterCurrent();
+  const btn = document.getElementById('avslut-next-btn');
+  if (btn) btn.style.display = next ? 'block' : 'none';
+}
+
+function goToNextLesson() {
+  const next = findNextUndoneLessonAfterCurrent();
+  if (next) openLesson(next.progId, next.ci, next.li);
+  else goToChapters();
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+function goTo(page, navEl) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+
+  const titles = {programs:'Program', chapters:currentProgram?.title||'', video:currentLesson?.title||'', progress:'Min progress', profile:'Profil'};
+  document.getElementById('topbar-title').textContent = titles[page]||'';
+
+  const actions = document.getElementById('topbar-actions');
+  actions.innerHTML = '';
+
+  if (navEl) {
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    navEl.classList.add('active');
+  }
+
+  closeSidebar();
+  if (page==='video') startVideoProgress();
+  else                stopVideoProgress();
+}
+
+/* ══════════════════════════════════════
+   PROGRAMS LIST
+══════════════════════════════════════ */
+function renderPrograms() {
+  const list = document.getElementById('programs-list');
+  list.innerHTML = PROGRAMS.map(p => {
+    const statusLabel = p.status==='done'?'Slutförd':p.status==='active'?'Påbörjad':'Ny';
+    const statusClass = p.status==='done'?'badge-done':p.status==='active'?'badge-active':'badge-new';
+    const progressHtml = p.progress>0 ? `
+      <div class="prog-progress-wrap">
+        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${p.progress}%"></div></div>
+        <div class="prog-pct">${p.progress}%</div>
+      </div>` : '';
+    return `
+    <div class="program-row" onclick="openProgram('${p.id}')">
+      <div class="program-info">
+        <h3>${p.title}</h3>
+        <div class="program-meta-row">
+          <span>${p.chapters} kapitel</span>
+          <span>${p.sessions}/${p.totalSessions} sessioner</span>
+        </div>
+        ${progressHtml}
+      </div>
+      <span class="prog-status-badge ${statusClass}">${statusLabel}</span>
+      <span class="chevron-right">›</span>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════
+   CHAPTER OVERVIEW
+══════════════════════════════════════ */
+function openProgram(id) {
+  currentProgram = PROGRAMS.find(p=>p.id===id);
+  if (!currentProgram) return;
+  renderChapters();
+  goTo('chapters', null);
+  document.getElementById('topbar-title').textContent = currentProgram.title;
+}
+
+function renderChapters() {
+  const p = currentProgram;
+  const done = p.chapters_data.reduce((a,c)=>a+c.lessons.filter(l=>l.done).length,0);
+  const total= p.chapters_data.reduce((a,c)=>a+c.lessons.length,0);
+
+  const html = `
+    <div class="program-overview-header">
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:10px">${p.title}</h2>
+      <div class="sessions-row">
+        Sessioner avklarade
+        <span class="sessions-val">${done}/${total}</span>
+      </div>
+      <div class="prog-bar-bg" style="height:4px">
+        <div class="prog-bar-fill" style="width:${p.progress}%"></div>
+      </div>
+    </div>
+    ${p.chapters_data.map((ch,ci)=>`
+    <div class="chapter-section">
+      <div class="chapter-header">${ch.title}</div>
+      <div class="chapter-lessons">
+        ${ch.lessons.map((l,li)=>{
+          // A lesson is unlocked if it's first OR the previous lesson is done
+          const isLocked = li > 0 && !ch.lessons[li-1].done;
+          const rowCls   = 'lesson-row' + (isLocked ? ' locked' : '');
+          const onclick  = isLocked ? '' : `onclick="openLesson('${p.id}',${ci},${li})"`;
+          return `
+        <div class="${rowCls}" ${onclick}>
+          <div class="lesson-check ${l.done?'done':''}">
+            ${l.done ? '✓' : ''}
+          </div>
+          <span class="lesson-title">${l.title}</span>
+          <span class="lesson-time">${l.time}</span>
+          ${isLocked ? '<span class="lesson-lock">🔒</span>' : ''}
+        </div>`;
+        }).join('')}
+      </div>
+    </div>`).join('')}`;
+
+  document.getElementById('chapters-content').innerHTML = html;
+}
+
+/* ══════════════════════════════════════
+   VIDEO PLAYER
+══════════════════════════════════════ */
+function openLesson(progId, chapterIdx, lessonIdx) {
+  currentProgram = PROGRAMS.find(p=>p.id===progId)||currentProgram;
+  const lesson = currentProgram.chapters_data[chapterIdx].lessons[lessonIdx];
+  currentLesson = lesson;
+
+  // Always start at the first step (video), regardless of prior completion
+  const alreadyDone = lesson.done;
+  stepsDone = {
+    video:   alreadyDone,
+    artikel: alreadyDone,
+    aimentor:alreadyDone,
+    quiz:    alreadyDone,
+    avslut:  alreadyDone,
+  };
+  currentStep = 'video'; // always begin at step 1
+
+  document.getElementById('video-lesson-title').textContent = lesson.title;
+  document.getElementById('video-sub').textContent = getSub(lesson.title);
+  videoProgress = alreadyDone ? 100 : 15;
+  document.getElementById('vpbar').style.width = videoProgress+'%';
+  videoPlaying = true;
+  videoSpeed = 1;
+  document.getElementById('play-icon').textContent = '⏸';
+  // Reset speed buttons to 1×
+  document.querySelectorAll('.speed-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+
+  // Reset AI chat so it re-initialises on next open
+  const aiChat = document.getElementById('ai-chat');
+  if (aiChat) delete aiChat.dataset.initialized;
+
+  // Reset quiz for new lesson
+  quizIndex=0; quizSelected=null; quizAnswers=[]; quizState='idle';
+
+  // Reset CTA buttons
+  const btnArticle = document.getElementById('btn-to-article');
+  if (btnArticle) btnArticle.style.display = alreadyDone ? 'flex' : 'none';
+  const showQuiz = alreadyDone ? 'flex' : 'none';
+  const btnQuiz = document.getElementById('ai-quiz-cta');
+  if (btnQuiz) btnQuiz.style.display = showQuiz;
+  const btnQuizV = document.getElementById('ai-quiz-cta-voice');
+  if (btnQuizV) btnQuizV.style.display = showQuiz;
+
+  goTo('video', null);
+  document.getElementById('topbar-title').textContent = lesson.title;
+
+  // Always show video panel on entry, hide others
+  setTimeout(()=>{
+    renderStepTabs();
+    document.getElementById('lesson-panel-video').classList.remove('hidden');
+    document.getElementById('lesson-panel-article').classList.add('hidden');
+    const aiPnl = document.getElementById('lesson-panel-aimentor');
+    if (aiPnl) aiPnl.classList.add('hidden');
+    const quizPnl = document.getElementById('lesson-panel-quiz');
+    if (quizPnl) quizPnl.classList.add('hidden');
+    const avslutPnl = document.getElementById('lesson-panel-avslut');
+    if (avslutPnl) avslutPnl.classList.add('hidden');
+    // Show video unlock hint only if video not yet watched
+    const hint = document.getElementById('video-unlock-hint');
+    if (hint) hint.style.display = !stepsDone['video'] ? 'block' : 'none';
+    // Show controls initially, then auto-hide after 3s
+    const ctrl = document.getElementById('video-controls');
+    if(ctrl) ctrl.classList.remove('controls-hidden');
+    scheduleHideControls();
+  }, 0);
+}
+
+function getSub(title){
+  const map = {
+    'Öppningen':'säljare underskattar: den första',
+    'Behovsanalysen':'frågor är svaret på allt',
+    'Micro-pitchen':'kort, träffsäker och relevant',
+  };
+  return map[title]||title;
+}
+
+function startVideoProgress(){
+  stopVideoProgress();
+  if(!videoPlaying) return;
+  const hint = document.getElementById('video-unlock-hint');
+  if(hint && !stepsDone['video']) hint.style.display = 'block';
+  videoInterval = setInterval(()=>{
+    if(videoPlaying && videoProgress < 100){
+      videoProgress = Math.min(100, videoProgress + 0.3 * videoSpeed);
+      document.getElementById('vpbar').style.width = videoProgress+'%';
+      const total=201;
+      const cur = Math.floor(total*videoProgress/100);
+      const rem = total-cur;
+      document.getElementById('vtime').textContent = fmt(cur);
+      document.getElementById('vtotal').textContent = '-'+fmt(rem);
+      if(videoProgress >= 90 && !stepsDone['video']){
+        if(hint) hint.style.display = 'none';
+        completeStep('video');
+      }
+    }
+  }, 300);
+}
+function stopVideoProgress(){ clearInterval(videoInterval); }
+function fmt(s){ return Math.floor(s/60)+':'+(s%60).toString().padStart(2,'0'); }
+
+function togglePlay(el){
+  videoPlaying = !videoPlaying;
+  document.getElementById('play-icon').textContent = videoPlaying ? '⏸' : '▶';
+  if(videoPlaying){ startVideoProgress(); scheduleHideControls(); }
+  else {
+    stopVideoProgress();
+    clearTimeout(controlsTimer);
+    const ctrl = document.getElementById('video-controls');
+    if(ctrl) ctrl.classList.remove('controls-hidden');
+  }
+}
+
+function setSpeed(speed, btn){
+  videoSpeed = speed;
+  document.querySelectorAll('.speed-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if(videoPlaying){ stopVideoProgress(); startVideoProgress(); }
+}
+function showVideoControls(){
+  const ctrl = document.getElementById('video-controls');
+  if(!ctrl) return;
+  ctrl.classList.remove('controls-hidden');
+  clearTimeout(controlsTimer);
+  // Only auto-hide while playing
+  if(videoPlaying) controlsTimer = setTimeout(()=>ctrl.classList.add('controls-hidden'), 3000);
+}
+function scheduleHideControls(){
+  clearTimeout(controlsTimer);
+  const ctrl = document.getElementById('video-controls');
+  if(ctrl && videoPlaying) controlsTimer = setTimeout(()=>ctrl.classList.add('controls-hidden'), 1500);
+}
+
+function jumpToStart(){
+  videoProgress=0;
+  document.getElementById('vpbar').style.width='0%';
+  document.getElementById('vtime').textContent=fmt(0);
+  document.getElementById('vtotal').textContent='-'+fmt(201);
+}
+function jumpToEnd(){
+  videoProgress=100;
+  document.getElementById('vpbar').style.width='100%';
+  document.getElementById('vtime').textContent=fmt(201);
+  document.getElementById('vtotal').textContent='-'+fmt(0);
+  if(!stepsDone['video']){
+    const hint=document.getElementById('video-unlock-hint');
+    if(hint) hint.style.display='none';
+    completeStep('video');
+  }
+}
+function skipBack(){
+  videoProgress=Math.max(0,videoProgress-5);
+  document.getElementById('vpbar').style.width=videoProgress+'%';
+}
+function skipFwd(){
+  videoProgress=Math.min(100,videoProgress+5);
+  document.getElementById('vpbar').style.width=videoProgress+'%';
+  if(videoProgress>=90 && !stepsDone['video']){
+    const hint=document.getElementById('video-unlock-hint');
+    if(hint) hint.style.display='none';
+    completeStep('video');
+  }
+}
+
+/* ══════════════════════════════════════
+   AI MENTOR PANEL
+══════════════════════════════════════ */
+const AI_RESPONSES = [
+  'Skönt med effektivitet! Men här är grejen: Om chefen inte riktigt förstår vad som ska hända direkt, finns risk att hen känner sig överväldigad. Tricket? Ge dem kartan i form av en tydlig struktur: Varför vi ses, Vad vi ska göra, När vi är klara.',
+  'Bra! Kom ihåg att använda Why-What-Next i nästa kundmöte. Testa att hålla det under 30 sekunder.',
+  'Perfekt insikt! Det är precis den känslan du vill skapa hos kunden från första sekunden.',
+  'Försök! Du fick med en del om vad som ska diskuteras och ställde en fråga i slutet, men du missade att tydligt säga syftet med mötet.',
+  'Bättre! Nu hade du både syfte och agenda. Nästa steg – gör det ännu kortare och skarpare.',
+];
+
+const AI_GREETING = 'Bra jobbat! 👏 Vad tog du med dig från artikeln? Reflektera gärna, skriv ett svar — eller testa att öva genom att prata med mig.';
+
+function initAIChat(){
+  // Init chat on first open per lesson — preserve state on return visits
+  const chat = document.getElementById('ai-chat');
+  if(!chat.dataset.initialized){
+    chat.dataset.initialized='true';
+    chat.innerHTML = `
+      <div class="ai-msg">
+        <div class="mentor-avatar">∞</div>
+        <div>
+          <div class="mentor-name">Trainer</div>
+          <div class="mentor-bubble">${AI_GREETING}</div>
+        </div>
+      </div>`;
+    aiResponseIdx = 0;
+    // Only reset input mode on first open — returning users keep their mode
+    document.getElementById('ai-text-input').style.display='block';
+    document.getElementById('ai-voice-input').style.display='none';
+    const micBtn = document.getElementById('micBtn');
+    if(micBtn) micBtn.className='mic-btn idle';
+    const micLabel = document.getElementById('micLabel');
+    if(micLabel) micLabel.textContent='Håll in för att prata';
+    micActive = false;
+  }
+  // Scroll to latest message on every return
+  setTimeout(()=>{ chat.scrollTop = chat.scrollHeight; }, 50);
+}
+
+// openAIPanel — navigates to the aimentor step (from article CTA / step tab)
+function openAIPanel(){
+  goToLessonStep('aimentor');
+}
+
+/* ══════════════════════════════════════
+   MENTOR DROPDOWN (global quick-chat)
+══════════════════════════════════════ */
+const MENTOR_DROPDOWN_GREETING = 'Hej! 👋 Jag är din AI-mentor. Ställ gärna en fråga om det du lär dig, ett begrepp du vill förstå bättre, eller be mig ge ett exempel.';
+let mentorDropdownInit = false;
+let mentorDropdownRespIdx = 0;
+const MENTOR_DROPDOWN_RESPONSES = [
+  'Bra fråga! Det handlar om att skapa en trygg känsla redan från start. Tänk på att kunden bedömer dig under de första 30 sekunderna.',
+  'Precis — strukturen Why-What-Next är ett kraftfullt verktyg för det. Vill du att jag förklarar varje del mer ingående?',
+  'Det stämmer. Att nämna tidsramen gör att kunden kan slappna av och fokusera på innehållet istället för att undra när mötet slutar.',
+  'Exakt! Och kom ihåg: korta, tydliga meningar är mer övertygande än långa förklaringar.',
+];
+
+function toggleMentorDropdown(){
+  const el = document.getElementById('mentorDropdown');
+  if(el.classList.contains('open')) closeMentorDropdown();
+  else openMentorDropdown();
+}
+
+function openMentorDropdown(){
+  const el = document.getElementById('mentorDropdown');
+  const backdrop = document.getElementById('mentorDropdownBackdrop');
+  el.classList.add('open');
+  backdrop.classList.remove('hidden');
+  if(!mentorDropdownInit){
+    mentorDropdownInit = true;
+    const chat = document.getElementById('mentor-dropdown-chat');
+    chat.innerHTML = `
+      <div class="ai-msg">
+        <div class="mentor-avatar" style="width:28px;height:28px;font-size:.65rem">∞</div>
+        <div>
+          <div class="mentor-name">Mentor</div>
+          <div class="mentor-bubble">${MENTOR_DROPDOWN_GREETING}</div>
+        </div>
+      </div>`;
+  }
+  // Always show text input on open
+  document.getElementById('md-text-input').style.display='block';
+  document.getElementById('md-voice-input').style.display='none';
+  if(mdMicActive){ mdMicActive=false; const b=document.getElementById('md-micBtn'); if(b) b.className='mic-btn idle'; }
+  setTimeout(()=>document.getElementById('mentor-dropdown-input').focus(), 50);
+}
+
+function closeMentorDropdown(){
+  document.getElementById('mentorDropdown').classList.remove('open');
+  document.getElementById('mentorDropdownBackdrop').classList.add('hidden');
+}
+
+function handleMentorDropdownEnter(e){
+  if(e.key==='Enter') sendMentorDropdown();
+}
+
+function sendMentorDropdown(){
+  const input = document.getElementById('mentor-dropdown-input');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  const chat = document.getElementById('mentor-dropdown-chat');
+
+  // User bubble
+  chat.innerHTML += `
+    <div class="ai-msg user-msg">
+      <div class="user-avatar-sm">JK</div>
+      <div>
+        <div class="user-name-label">Du</div>
+        <div class="user-bubble">${text}</div>
+      </div>
+    </div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  // Typing indicator
+  const typingId = 'mdt-' + Date.now();
+  chat.innerHTML += `
+    <div class="ai-msg" id="${typingId}">
+      <div class="mentor-avatar" style="width:28px;height:28px;font-size:.65rem">∞</div>
+      <div>
+        <div class="mentor-name">Mentor</div>
+        <div class="mentor-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
+      </div>
+    </div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  setTimeout(()=>{
+    const typing = document.getElementById(typingId);
+    if(typing){
+      const resp = MENTOR_DROPDOWN_RESPONSES[mentorDropdownRespIdx % MENTOR_DROPDOWN_RESPONSES.length];
+      mentorDropdownRespIdx++;
+      typing.querySelector('.mentor-bubble').textContent = resp;
+    }
+    chat.scrollTop = chat.scrollHeight;
+  }, 1000 + Math.random()*600);
+}
+
+/* Voice mode for mentor dropdown */
+let mdMicActive = false;
+
+function switchMdToVoice(){
+  document.getElementById('md-text-input').style.display='none';
+  document.getElementById('md-voice-input').style.display='flex';
+  const chat = document.getElementById('mentor-dropdown-chat');
+  const note = document.createElement('div');
+  note.style.cssText='text-align:center;font-size:.7rem;color:var(--text-light2);padding:4px 0';
+  note.textContent='— Röstläge aktiverat —';
+  chat.appendChild(note);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function switchMdToText(){
+  document.getElementById('md-voice-input').style.display='none';
+  document.getElementById('md-text-input').style.display='block';
+  const chat = document.getElementById('mentor-dropdown-chat');
+  const note = document.createElement('div');
+  note.style.cssText='text-align:center;font-size:.7rem;color:var(--text-light2);padding:4px 0';
+  note.textContent='— Textläge aktiverat —';
+  chat.appendChild(note);
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(()=>document.getElementById('mentor-dropdown-input').focus(), 50);
+}
+
+function startMdMic(e){
+  if(e && e.cancelable) e.preventDefault();
+  if(mdMicActive) return;
+  mdMicActive = true;
+  const btn = document.getElementById('md-micBtn');
+  if(btn) btn.className='mic-btn active';
+  document.getElementById('md-micLabel').textContent='Lyssnar…';
+}
+
+function stopMdMic(e){
+  if(e && e.cancelable) e.preventDefault();
+  if(!mdMicActive) return;
+  mdMicActive = false;
+  const btn = document.getElementById('md-micBtn');
+  if(btn) btn.className='mic-btn idle';
+  document.getElementById('md-micLabel').textContent='Håll in för att prata';
+
+  const chat = document.getElementById('mentor-dropdown-chat');
+  const userPhrases = ['Kan du förklara Why-What-Next lite mer?','Hur lång ska en öppning vara?','Vad gör man om kunden avbryter?'];
+  const phrase = userPhrases[Math.floor(Math.random()*userPhrases.length)];
+  chat.innerHTML += `
+    <div class="ai-msg user-msg">
+      <div class="user-avatar-sm">JK</div>
+      <div>
+        <div class="user-name-label">Du (röst)</div>
+        <div class="user-bubble">${phrase}</div>
+      </div>
+    </div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  const typingId = 'mdv-'+Date.now();
+  setTimeout(()=>{
+    chat.innerHTML += `
+      <div class="ai-msg" id="${typingId}">
+        <div class="mentor-avatar" style="width:28px;height:28px;font-size:.65rem">∞</div>
+        <div>
+          <div class="mentor-name">Trainer</div>
+          <div class="mentor-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
+        </div>
+      </div>`;
+    chat.scrollTop = chat.scrollHeight;
+    setTimeout(()=>{
+      const t = document.getElementById(typingId);
+      if(t) t.querySelector('.mentor-bubble').textContent = MENTOR_DROPDOWN_RESPONSES[mentorDropdownRespIdx % MENTOR_DROPDOWN_RESPONSES.length];
+      mentorDropdownRespIdx++;
+      chat.scrollTop = chat.scrollHeight;
+    }, 1000);
+  }, 400);
+}
+
+function setAIMode(){}  // no-op — tabs removed
+
+function switchToVoice(){
+  document.getElementById('ai-text-input').style.display='none';
+  document.getElementById('ai-voice-input').style.display='flex';
+  // Add a small context note to shared chat on first switch
+  const chat = document.getElementById('ai-chat');
+  const note = document.createElement('div');
+  note.style.cssText='text-align:center;font-size:.7rem;color:var(--text-light2);padding:4px 0';
+  note.textContent='— Röstläge aktiverat —';
+  chat.appendChild(note);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function switchToText(){
+  document.getElementById('ai-voice-input').style.display='none';
+  document.getElementById('ai-text-input').style.display='block';
+  // Add a small context note to shared chat
+  const chat = document.getElementById('ai-chat');
+  const note = document.createElement('div');
+  note.style.cssText='text-align:center;font-size:.7rem;color:var(--text-light2);padding:4px 0';
+  note.textContent='— Textläge aktiverat —';
+  chat.appendChild(note);
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(()=>document.getElementById('ai-input').focus(), 50);
+}
+
+function handleAIEnter(e){
+  if(e.key==='Enter') sendAIMessage();
+}
+
+let aiResponseIdx = 0;
+function sendAIMessage(){
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value='';
+  const chat = document.getElementById('ai-chat');
+
+  // User message
+  chat.innerHTML += `
+    <div class="ai-msg user-msg">
+      <div class="user-avatar-sm">JK</div>
+      <div>
+        <div class="user-name-label">Du</div>
+        <div class="user-bubble">${text}</div>
+      </div>
+    </div>`;
+
+  // Typing indicator
+  const typingId = 'typing-'+Date.now();
+  chat.innerHTML += `
+    <div class="ai-msg" id="${typingId}">
+      <div class="mentor-avatar">∞</div>
+      <div>
+        <div class="mentor-name">Mentor</div>
+        <div class="mentor-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
+      </div>
+    </div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  // Response after delay
+  setTimeout(()=>{
+    const typing = document.getElementById(typingId);
+    if(typing){
+      const response = AI_RESPONSES[aiResponseIdx % AI_RESPONSES.length];
+      aiResponseIdx++;
+      typing.querySelector('.mentor-bubble').innerHTML = response;
+
+      // After first AI exchange, unlock Quiz step and show CTA
+      if (!stepsDone['aimentor']) {
+        stepsDone['aimentor'] = true;
+        if (currentStep === 'aimentor') currentStep = 'quiz';
+        renderStepTabs();
+        setTimeout(()=>{
+          const cta = document.getElementById('ai-quiz-cta');
+          if(cta) cta.style.display='flex';
+          const ctaV = document.getElementById('ai-quiz-cta-voice');
+          if(ctaV) ctaV.style.display='flex';
+          chat.scrollTop = chat.scrollHeight;
+        }, 500);
+      }
+    }
+    chat.scrollTop = chat.scrollHeight;
+  }, 1400);
+}
+
+function startMic(e){
+  if(e && e.cancelable) e.preventDefault(); // prevent touch scroll
+  if(micActive) return;
+  micActive = true;
+  const btn = document.getElementById('micBtn');
+  if(btn) btn.className = 'mic-btn active';
+  document.getElementById('micLabel').textContent = 'Lyssnar…';
+
+  // Unlock aimentor step on first voice interaction
+  if(!stepsDone['aimentor']){
+    stepsDone['aimentor'] = true;
+    if(currentStep === 'aimentor') currentStep = 'quiz';
+    renderStepTabs();
+  }
+}
+
+function stopMic(e){
+  if(e && e.cancelable) e.preventDefault();
+  if(!micActive) return;
+  micActive = false;
+  const btn = document.getElementById('micBtn');
+  if(btn) btn.className = 'mic-btn idle';
+  document.getElementById('micLabel').textContent = 'Håll in för att prata';
+
+  // Simulate a user voice message + mentor reply — shared chat with text mode
+  const chat = document.getElementById('ai-chat');
+  const userPhrases = ['Jag skulle börja med att presentera syftet med mötet…','Why-What-Next — kort och tydligt!','En väldigt kort och rak introduktion.'];
+  const phrase = userPhrases[Math.floor(Math.random()*userPhrases.length)];
+  chat.innerHTML += `
+    <div class="ai-msg user-msg">
+      <div class="user-avatar-sm">JK</div>
+      <div>
+        <div class="user-name-label">Du (röst)</div>
+        <div class="user-bubble">${phrase}</div>
+      </div>
+    </div>`;
+  chat.scrollTop = chat.scrollHeight;
+
+  const typingId = 'vt-'+Date.now();
+  setTimeout(()=>{
+    chat.innerHTML += `
+      <div class="ai-msg" id="${typingId}">
+        <div class="mentor-avatar">∞</div>
+        <div>
+          <div class="mentor-name">Trainer</div>
+          <div class="mentor-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
+        </div>
+      </div>`;
+    chat.scrollTop = chat.scrollHeight;
+    setTimeout(()=>{
+      const t = document.getElementById(typingId);
+      if(t) t.querySelector('.mentor-bubble').textContent = AI_RESPONSES[aiResponseIdx % AI_RESPONSES.length];
+      aiResponseIdx++;
+      chat.scrollTop = chat.scrollHeight;
+      // Show quiz arrow buttons after voice reply too
+      if(stepsDone['aimentor']){
+        const cta = document.getElementById('ai-quiz-cta');
+        if(cta) cta.style.display='flex';
+        const ctaV = document.getElementById('ai-quiz-cta-voice');
+        if(ctaV) ctaV.style.display='flex';
+      }
+    }, 1000);
+  }, 400);
+}
+
+/* ══════════════════════════════════════
+   QUIZ
+══════════════════════════════════════ */
+function openQuiz(){
+  quizIndex=0; quizSelected=null; quizAnswers=[]; quizState='active';
+  // Restore body/footer structure in case it was replaced by results screen
+  const panel = document.getElementById('lesson-panel-quiz');
+  if(panel){
+    panel.innerHTML = `
+      <div class="quiz-body">
+        <div class="quiz-progress" id="quiz-progress"></div>
+        <div class="quiz-question" id="quiz-question"></div>
+        <div class="quiz-options" id="quiz-options"></div>
+      </div>
+      <div class="quiz-footer">
+        <button class="btn btn-dark" style="width:100%" id="quiz-next-btn" onclick="nextQuestion()">Nästa →</button>
+      </div>`;
+  }
+  renderQuizQuestion();
+}
+function closeQuiz(){ /* no-op — quiz is inline, close handled by tab navigation */ }
+
+function renderQuizQuestion(){
+  const q = QUIZ_QUESTIONS[quizIndex];
+  document.getElementById('quiz-progress').textContent = `Fråga ${quizIndex+1} av ${QUIZ_QUESTIONS.length}`;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-options').innerHTML = q.opts.map((o,i)=>`
+    <div class="quiz-option" id="opt-${i}" onclick="selectOption(${i})">
+      <div class="quiz-check" id="chk-${i}"></div>
+      <span class="quiz-option-text">${o}</span>
+    </div>`).join('');
+  const isLast = quizIndex === QUIZ_QUESTIONS.length - 1;
+  document.getElementById('quiz-next-btn').textContent = isLast ? 'Se resultat →' : 'Nästa →';
+  quizSelected = null;
+}
+
+function selectOption(i){
+  // Allow changing answer — toggle off if clicking same, switch otherwise
+  quizSelected = (quizSelected === i) ? null : i;
+  document.querySelectorAll('.quiz-option').forEach((el, idx) => {
+    el.classList.toggle('selected', idx === quizSelected);
+    const chk = el.querySelector('.quiz-check');
+    chk.textContent = idx === quizSelected ? '●' : '';
+  });
+}
+
+function nextQuestion(){
+  // Save answer (null = skipped)
+  quizAnswers.push(quizSelected);
+  quizIndex++;
+  if(quizIndex >= QUIZ_QUESTIONS.length){
+    showQuizResults();
+    return;
+  }
+  renderQuizQuestion();
+}
+
+function showQuizResults(){
+  quizState = 'done';
+  const correct = quizAnswers.filter((ans, i) => ans === QUIZ_QUESTIONS[i].ans).length;
+  const total = QUIZ_QUESTIONS.length;
+  const allCorrect = correct === total;
+
+  stepsDone['quiz'] = true;
+  currentStep = 'quiz';
+  renderStepTabs();
+
+  const panel = document.getElementById('lesson-panel-quiz');
+  if(!panel) return;
+  panel.innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px 24px;gap:20px;text-align:center;overflow-y:auto">
+      <div style="font-size:2.8rem">${allCorrect ? '🏆' : correct >= total/2 ? '👍' : '📚'}</div>
+      <div style="font-size:1.2rem;font-weight:800;color:var(--text-light)">Quiz avslutat</div>
+      <div style="background:var(--surface2);border-radius:14px;padding:22px 32px;min-width:180px">
+        <div style="font-size:2.5rem;font-weight:800;color:var(--purple)">${correct}/${total}</div>
+        <div style="font-size:.82rem;color:var(--text-light2);margin-top:4px">rätt svar</div>
+      </div>
+      <div style="font-size:.875rem;color:var(--text-light2);line-height:1.55;max-width:300px">
+        ${allCorrect ? 'Perfekt! Du svarade rätt på alla frågor.' : correct >= total/2 ? 'Bra jobbat! Vill du försöka igen för att förbättra resultatet?' : 'Vill du gå igenom quizet igen för att befästa kunskapen?'}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;margin-top:8px">
+        <button class="btn" style="background:transparent;border:1.5px solid var(--purple);color:var(--purple);font-weight:600" onclick="openQuiz()">Gör om quizet</button>
+        <button class="btn btn-dark" style="background:var(--purple);border-color:var(--purple)" onclick="goToLessonStep('avslut')">Avsluta Quizet →</button>
+      </div>
+    </div>`;
+
+  if(allCorrect) launchConfetti();
+}
+
+/* ══════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════ */
+function launchConfetti(){
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.classList.remove('hidden');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+  const colors = ['#7C6FCD','#5B5CE2','#C0392B','#34C759','#FFD60A','#FF9F0A','#E8837A'];
+  const particles = Array.from({length:160}, ()=>({
+    x: Math.random()*canvas.width,
+    y: -20 - Math.random()*100,
+    r: Math.random()*7+3,
+    color: colors[Math.floor(Math.random()*colors.length)],
+    vx: (Math.random()-0.5)*5,
+    vy: Math.random()*4+2,
+    opacity: 1,
+    rot: Math.random()*360,
+    rotV: (Math.random()-0.5)*12,
+    shape: Math.random()>0.5?'rect':'circle',
+  }));
+  let frame=0, maxF=200;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.06; p.rot+=p.rotV;
+      if(frame>maxF*.65) p.opacity=Math.max(0,p.opacity-0.025);
+      ctx.save();
+      ctx.globalAlpha=p.opacity;
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.color;
+      if(p.shape==='circle'){ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();}
+      else ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
+      ctx.restore();
+    });
+    frame++;
+    if(frame<maxF) requestAnimationFrame(draw);
+    else canvas.classList.add('hidden');
+  }
+  draw();
+}
+
+/* ══════════════════════════════════════
+   PROFILE PANEL
+══════════════════════════════════════ */
+function openProfilePanel(){
+  document.getElementById('profilePanel').classList.remove('hidden');
+}
+function closeProfilePanel(){
+  document.getElementById('profilePanel').classList.add('hidden');
+}
+
+/* ══════════════════════════════════════
+   ARTICLE SCROLL DETECTION
+══════════════════════════════════════ */
+function setupArticleScrollDetection(){
+  const sentinel  = document.getElementById('article-scroll-sentinel');
+  const container = document.getElementById('lesson-panel-article');
+  if(!sentinel||!container) return;
+  if(window._articleObserver) window._articleObserver.disconnect();
+  window._articleObserver = new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting && !stepsDone['artikel']){
+      const hint = document.getElementById('article-read-hint');
+      if(hint) hint.style.display='none';
+      const btn = document.getElementById('btn-to-aimentor');
+      if(btn) btn.style.display='flex';
+      completeStep('artikel');
+    }
+  },{root:container, threshold:0.9});
+  window._articleObserver.observe(sentinel);
+}
+
+/* ══════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════ */
+function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+function closeSidebar(){ document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+renderPrograms();
+</script>
+</body>
+</html>
